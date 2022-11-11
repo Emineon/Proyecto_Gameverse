@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/drawable-anydpi/ic_config.xml" value="0.238" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_ajustes.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear_perfil.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_datos.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_menu.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_password.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_recuperacion.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_recuperacion2.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menuprincipal.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

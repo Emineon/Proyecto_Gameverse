@@ -3,17 +3,9 @@ package com.example.proyectogameverse
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MenuActivity : AppCompatActivity() {
+class AjustesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
-
-        ConfigIU()
-    }
-
-    private fun ConfigIU() {
-        if(intent != null){
-
-        }
+        setContentView(R.layout.activity_ajustes)
     }
 }

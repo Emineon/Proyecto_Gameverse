@@ -14,7 +14,19 @@
         android:theme="@style/Theme.ProyectoGameverse"
         tools:targetApi="31">
         <activity
-            android:name=".MenuActivity"
+            android:name=".PasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DatosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AjustesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecuperacionActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".PrincipalActivity"
             android:exported="false" />
         <activity
             android:name=".RecuperacionActivity"

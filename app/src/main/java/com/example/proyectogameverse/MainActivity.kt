@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val biniciar : Button = findViewById(R.id.bIniciar)
 
         biniciar.setOnClickListener{
-            val intent = Intent(this, MenuActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
 
             startActivityForResult(intent,1)
         }
