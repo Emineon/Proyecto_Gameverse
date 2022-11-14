@@ -7,17 +7,18 @@
     tools:context=".PrincipalActivity">
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
+        android:id="@+id/bPublicaciones"
+        android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:text="Mis publicaciones"
+        app:layout_constraintEnd_toStartOf="@+id/bGrupos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
-        android:layout_width="219dp"
+        android:id="@+id/bGrupos"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:text="Grupos"
@@ -30,9 +31,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Bienvenido"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/bPublicaciones" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="627dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 </androidx.constraintlayout.widget.ConstraintLayout>
