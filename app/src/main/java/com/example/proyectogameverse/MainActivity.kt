@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         if(perfil.isNotEmpty()){
             if(password.isNotEmpty()){
-                val intent = Intent(this, PrincipalActivity::class.java)
+                val intent = Intent(this, MenuPrincipalActivity::class.java)
 
                 startActivityForResult(intent,1)
             }else{
