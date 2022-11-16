@@ -34,9 +34,9 @@ class CrearPerfilActivity : AppCompatActivity() {
 
         if(nombre.isNotEmpty()){
             if(correo.isNotEmpty()){
-                if(crearpassword.isNotEmpty()){
-                    if(confpassword.isNotEmpty()){
-                        val intent = Intent(this, PrincipalActivity::class.java)
+                if(crearpassword.isNotEmpty() && confpassword.isNotEmpty()){
+                    if(crearpassword == confpassword){
+                        val intent = Intent(this, MenuPrincipalActivity::class.java)
 
                         startActivity(intent)
                     }else{
