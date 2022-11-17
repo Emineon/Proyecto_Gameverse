@@ -15,6 +15,10 @@ class AjustesActivity : AppCompatActivity() {
 
         val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
 
+        ibperfil.setOnClickListener{
+            seleccionarFoto()
+        }
+
         val bdatos : Button = findViewById(R.id.bDatos)
 
         bdatos.setOnClickListener{
@@ -38,6 +42,15 @@ class AjustesActivity : AppCompatActivity() {
         bcerrar.setOnClickListener{
             mensajeConfirmacion()
         }
+    }
+
+    private fun seleccionarFoto() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply{
+            type = "image/*"
+        }
+        //if(intent.resolveActivity(packageManager) != null){
+            startActivityForResult(intent,1)
+        //}
     }
 
     private fun cambiarDatos() {
@@ -73,7 +86,7 @@ class AjustesActivity : AppCompatActivity() {
                     })
             }
 
-            builder.setTitle("¿Deseas cerrar sesión")
+            builder.setTitle("¿Deseas cerrar sesión?")
             builder.setMessage("Se cerrará tu acceso a la plataforma, como; mensajes, imágenes, videos, entre otros")
 
             builder.create()
