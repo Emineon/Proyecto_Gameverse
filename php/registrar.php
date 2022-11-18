@@ -31,8 +31,10 @@ if(!empty($_POST)){
 
     header('Content-type: application/json');
     echo json_encode($retorno);
-}else{
-    $retorno['mensaje'] = 'Error en el método';
-    echo json_encode($retorno);
+    exit();
 }
+$retorno['mensaje'] = 'No se encontro ningun registro';
+
+header('Content-type: application/json');
+echo json_encode($retorno);
 ?>

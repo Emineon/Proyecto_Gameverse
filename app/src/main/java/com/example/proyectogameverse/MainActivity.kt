@@ -3,11 +3,19 @@ package com.example.proyectogameverse
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
+    private var url_login : String = "http://192.168.1.87/gameverse_preservidor/login.php"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,14 +52,38 @@ class MainActivity : AppCompatActivity() {
 
         if(perfil.isNotEmpty()){
             if(password.isNotEmpty()){
-                val intent = Intent(this, MenuPrincipalActivity::class.java)
+                url_login += "?nombre=$perfil&password=$password"
 
-                startActivityForResult(intent,1)
+                leerAcceso()
             }else{
                 Toast.makeText(this,"No se ingreso ningún dato",Toast.LENGTH_SHORT).show()
             }
         }else{
             Toast.makeText(this,"No se ingreso ningún dato",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun leerAcceso() {
+        val queue : RequestQueue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET,
+            url_login,
+            null,
+            {
+                response ->
+                if(response.getBoolean("exito")){
+                    val intent = Intent(this, MenuPrincipalActivity::class.java)
+
+                    startActivityForResult(intent,1)
+                }
+            },
+            {
+                errorResponse ->
+                Toast.makeText(this,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
     }
 }

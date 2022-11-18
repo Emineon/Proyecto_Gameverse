@@ -15,7 +15,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 class CrearPerfilActivity : AppCompatActivity() {
-    private val url_registrar : String = "http://10.200.26.153/gameverse_preservidor/registrar.php"
+    private val url_registrar : String = "http://192.168.1.87/gameverse_preservidor/registrar.php"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
