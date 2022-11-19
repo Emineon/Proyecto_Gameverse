@@ -6,7 +6,7 @@ $retorno = array(
     'mensaje' => "N/A"
 );
 
-if(!empty($_GET)) {
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
     $get = empty($_GET) ? json_decode(file_get_contents('php://input'), true) : $_GET;
 
     $nombre = $get['nombre'];

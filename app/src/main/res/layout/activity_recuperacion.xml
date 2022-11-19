@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Recuperación de contraseña"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +27,7 @@
         android:layout_marginTop="24dp"
         android:text="Correo electrónico"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -37,7 +38,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,11 +48,12 @@
         android:id="@+id/bRecuperar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@android:color/holo_blue_light"
         android:text="Recuperar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPerfil2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

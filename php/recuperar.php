@@ -6,7 +6,7 @@ $retorno = array(
     'mensaje' => "N/A"
 );
 
-if(!empty($_GET)){
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $get = empty($_GET) ? json_decode(file_get_contents('php://input'), true) : $_GET;
 
     $correo = $get['correo'];
@@ -23,8 +23,29 @@ if(!empty($_GET)){
         }
     }
 
-    if(!empty($correo) && !empty($post['password'])){
-        $password = $get['password'];
+    header('Content-type: application/json');
+    echo json_encode($retorno);
+    exit();
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+    $get = empty($_GET) ? json_decode(file_get_contents('php://input'), true) : $_GET;
+
+    $correo = $get['correo'];
+    $password = $get['password'];
+
+    if(!empty($correo) && !empty($password)){
+        $passmd5 = md5($password);
+        $update = "update dbperfil set password = '$passmd5' where email = '$correo'";
+
+        $resultado = mysqli_query($conexion, $update);
+
+        if($resultado){
+            $retorno['exito'] = true;
+            $retorno['mensaje'] = "Se modifico la contraseña";
+        }else{
+            $retorno['mensaje'] = "Error en BD";
+        }
     }
 
     header('Content-type: application/json');

@@ -13,6 +13,7 @@ import com.android.volley.toolbox.Volley
 
 class RecuperacionActivity : AppCompatActivity() {
     private var url_recuperar : String = "http://192.168.1.87/gameverse_preservidor/recuperar.php"
+    private lateinit var perfil : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +28,11 @@ class RecuperacionActivity : AppCompatActivity() {
 
     private fun verificarPerfil() {
         val etperfil : EditText = findViewById(R.id.etPerfil2)
-        val perfil : String = etperfil.text.toString()
+        perfil = etperfil.text.toString()
 
         if(perfil.isNotEmpty()){
             url_recuperar += "?correo=$perfil"
             leerPerfil()
-            val intent = Intent(this,RecuperacionActivity2::class.java)
-
-            startActivity(intent)
         }else{
             Toast.makeText(this,"Introduce el nombre o correo electrónico",Toast.LENGTH_SHORT).show()
         }
@@ -48,11 +46,15 @@ class RecuperacionActivity : AppCompatActivity() {
             url_recuperar,
             null,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     val intent = Intent(this, RecuperacionActivity2::class.java)
+                    intent.putExtra("correo",perfil)
 
                     startActivityForResult(intent,1)
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }
             },
             {

@@ -8,6 +8,8 @@ import android.view.MenuItem
 import com.google.android.material.chip.Chip
 
 class MenuPrincipalActivity : AppCompatActivity() {
+    private  val url_perfil : String = "http://192.168.1.87/gameverse_preservidor/perfil.php"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)

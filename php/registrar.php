@@ -6,7 +6,7 @@ $retorno = array(
     'mensaje' => 'N/A'
 );
 
-if(!empty($_POST)){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //Decodificar los datos recibidos
     $post = empty($_POST) ? json_decode(file_get_contents('php://input'), true) : $_POST;
 
