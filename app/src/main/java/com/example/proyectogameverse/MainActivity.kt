@@ -14,7 +14,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
-    private var url_login : String = "http://192.168.1.87/gameverse_preservidor/login.php"
+    private var url_login : String = "http://192.168.1.87/gameverse_preservidor/usuario/login.php"
+    private lateinit var perfil : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun verificarPerfil() {
         val etperfil : EditText = findViewById(R.id.etPerfil)
-        val perfil : String = etperfil.text.toString()
+        perfil = etperfil.text.toString()
 
         val etpassword : EditText = findViewById(R.id.etPassword)
         val password : String = etpassword.text.toString()
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 response ->
                 if(response.getBoolean("exito")){
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
+                    intent.putExtra("nombre",perfil)
 
                     startActivityForResult(intent,1)
                 }

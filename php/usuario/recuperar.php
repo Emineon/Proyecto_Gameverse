@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 
 $retorno = array(
     'exito' => false,
@@ -52,4 +52,10 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT'){
     echo json_encode($retorno);
     exit();
 }
+
+$retorno['mensaje'] = 'No se encontro ningun dato';
+
+header("HTTP/1.1 400 Bad Request");
+header('Content-type: application/json');
+echo json_encode($retorno);
 ?>

@@ -13,7 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
 class RecuperacionActivity2 : AppCompatActivity() {
-    private var url_recuperar2 : String = "http://192.168.1.87/gameverse_preservidor/recuperar.php"
+    private var url_recuperar2 : String = "http://192.168.1.87/gameverse_preservidor/usuario/recuperar.php"
     private lateinit var correo : String
 
     override fun onCreate(savedInstanceState: Bundle?) {

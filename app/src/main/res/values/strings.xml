@@ -2,4 +2,12 @@
     <string name="app_name">Proyecto Gameverse</string>
     <string name="ok">Ok</string>
     <string name="cancelar">Cancelar</string>
+    <string-array name="genero">
+        <item></item>
+        <item>Plataforma</item>
+        <item>Carrerras</item>
+        <item>Pelea</item>
+        <item>Shooter</item>
+        <item>Terror</item>
+    </string-array>
 </resources>

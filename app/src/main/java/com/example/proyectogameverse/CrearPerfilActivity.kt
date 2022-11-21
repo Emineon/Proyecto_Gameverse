@@ -15,7 +15,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 class CrearPerfilActivity : AppCompatActivity() {
-    private val url_registrar : String = "http://192.168.1.87/gameverse_preservidor/registrar.php"
+    private val url_registrar : String = "http://192.168.1.87/gameverse_preservidor/usuario/registrar.php"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class CrearPerfilActivity : AppCompatActivity() {
 
                         val post : JSONObject = JSONObject(parametros)
 
-                        leerRegistro(post)
+                        enviarRegistro(post)
                     }else{
                         Toast.makeText(this,"No se ingreso igualmente la contraseña", Toast.LENGTH_SHORT).show()
                     }
@@ -67,7 +67,7 @@ class CrearPerfilActivity : AppCompatActivity() {
         }
     }
 
-    private fun leerRegistro(post : JSONObject) {
+    private fun enviarRegistro(post : JSONObject) {
         val quece = Volley.newRequestQueue(this)
 
         //Log.i("",post.getString("nombre"))
