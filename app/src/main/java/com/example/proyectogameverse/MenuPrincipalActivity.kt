@@ -19,7 +19,7 @@ import org.json.JSONObject
 class MenuPrincipalActivity : AppCompatActivity() {
     private var url_perfil : String = "http://192.168.1.87/gameverse_preservidor/perfil.php"
     private lateinit var nombre : String
-    private var id_perfil : Int = -1
+    private var id_perfil : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,8 @@ class MenuPrincipalActivity : AppCompatActivity() {
     }
 
     private fun configAPI() {
-        if(intent != null){
+        val intent = intent
+        if(intent != null && intent.hasExtra("nombre")){
             nombre = intent.getStringExtra("nombre").toString()
             url_perfil += "?nombre=$nombre"
 

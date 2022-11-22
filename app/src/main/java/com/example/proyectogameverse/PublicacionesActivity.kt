@@ -4,9 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.Menu
 import android.widget.Button
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -15,8 +18,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class PublicacionesActivity : AppCompatActivity() {
-    private var url_listar : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/listar.php"
-    private var id_perfil : Int = -1
+    private var url_listar : String = ""
+    private var id_perfil : Int = 0
+    private lateinit var adapter : PublicacionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,12 @@ class PublicacionesActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        val rvpublicaciones : RecyclerView = findViewById(R.id.rvPublicaciones)
+        adapter = PublicacionAdapter()
+
+        rvpublicaciones.adapter = adapter
+        rvpublicaciones.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,false)
     }
 
     override fun onStart() {
@@ -50,15 +60,18 @@ class PublicacionesActivity : AppCompatActivity() {
     }
 
     private fun ConfigAPI() {
-        if(intent != null){
+        val intent = intent
+        if(intent != null && intent.hasExtra("id_perfil")){
             id_perfil = intent.getIntExtra("id_perfil",-1)
-            url_listar += "?id_perfil = $id_perfil"
         }
+        url_listar = "http://192.168.1.87/gameverse_preservidor/publicaciones/listar.php?id_perfil=$id_perfil"
         leerLista()
     }
 
     private fun leerLista() {
         val queue : RequestQueue = Volley.newRequestQueue(this)
+
+        Log.i("",url_listar)
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.GET,
@@ -83,8 +96,22 @@ class PublicacionesActivity : AppCompatActivity() {
     }
 
     private fun llenarLista(lista: JSONArray) {
+        adapter.limpiar()
+
         for(i in 0 .. lista.length() - 1){
             val publicaciones = lista[i] as JSONObject
+
+            var publicacion = Publicacion()
+
+            publicacion.id_publicacion = publicaciones.getInt("id")
+            publicacion.titulo = publicaciones.getString("titulo")
+            publicacion.descripcion = publicaciones.getString("descripcion")
+            publicacion.xbox = publicaciones.getBoolean("xbox")
+            publicacion.playstation = publicaciones.getBoolean("playstation")
+            publicacion.nintendo = publicaciones.getBoolean("nintendo")
+            publicacion.genero = publicaciones.getString("genero")
+
+            adapter.guardar(publicacion)
         }
     }
 }

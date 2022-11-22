@@ -22,10 +22,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         while($fila = mysqli_fetch_assoc($resultado)){
             $publicaciones[$indice]["id"] = (int) $fila['id'];
             $publicaciones[$indice]["titulo"] = $fila['titulo'];
-            $publicaciones[$indice]["descripcion"] = $fila['descripcion'];
-            $publicaciones[$indice]["xbox"] = $fila['op_xbox'];
-            $publicaciones[$indice]["playstation"] = $fila['op_playstation'];
-            $publicaciones[$indice]["nintendo"] = $fila['op_nintendo'];
+            $publicaciones[$indice]["descripcion"] = $fila['descripción'];
+            $publicaciones[$indice]["xbox"] = $fila['op_xbox'] == 1;
+            $publicaciones[$indice]["playstation"] = $fila['op_playstation'] == 1;
+            $publicaciones[$indice]["nintendo"] = $fila['op_nintendo'] == 1;
             $publicaciones[$indice]["genero"] = $fila['genero'];
 
             $indice++;
