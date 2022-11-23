@@ -2,6 +2,7 @@ package com.example.proyectogameverse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.CheckBox
@@ -15,7 +16,17 @@ import org.json.JSONObject
 
 class CrearActivity : AppCompatActivity() {
     private var url_crear : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/crear.php"
+    private var url_modificar : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php"
+
+    private lateinit var ettitulo : EditText
+    private lateinit var etDesc : EditText
+    private lateinit var cbxbox : CheckBox
+    private lateinit var cbplaystation : CheckBox
+    private lateinit var cbnintendo : CheckBox
+    private lateinit var sgenero : Spinner
+
     private var id : Int = 0
+    private var id_publicacion : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +36,22 @@ class CrearActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menucrear,menu)
+        if(intent != null && intent.hasExtra("id_publicacion")){
+            menuInflater.inflate(R.menu.menumodificar, menu)
+        }else{
+            menuInflater.inflate(R.menu.menucrear, menu)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.opc_crear){
+            Log.i("",url_crear)
             crearPublicacion()
+        }
+        if(item.itemId == R.id.opc_cambios){
+            Log.i("",url_modificar)
+            editarPublicacion()
         }
 
         return super.onOptionsItemSelected(item)
@@ -42,24 +62,84 @@ class CrearActivity : AppCompatActivity() {
         if(intent != null && intent.hasExtra("id_perfil")){
             id = intent.getIntExtra("id_perfil",0)
         }
+        if(intent != null && intent.hasExtra("id_publicacion")){
+            id_publicacion = intent.getIntExtra("id_publicacion",0)
+            val titulo = intent.getStringExtra("titulo")
+            val descripcion = intent.getStringExtra("descripcion")
+            val xbox = intent.getBooleanExtra("xbox",false)
+            val playstation = intent.getBooleanExtra("playstation",false)
+            val nintendo = intent.getBooleanExtra("nintendo",false)
+            val genero = intent.getStringExtra("genero")
+
+            ettitulo = findViewById(R.id.etTitulo)
+            etDesc = findViewById(R.id.etDescPublicacion)
+
+            cbxbox = findViewById(R.id.cbXbox)
+            cbplaystation = findViewById(R.id.cbPlaystation)
+            cbnintendo = findViewById(R.id.cbNintendo)
+
+            sgenero = findViewById(R.id.sGenero)
+
+            ettitulo.setText(titulo)
+            etDesc.setText(descripcion)
+
+            cbxbox.isChecked = xbox
+            cbplaystation.isChecked = playstation
+            cbnintendo.isChecked = nintendo
+
+            sgenero.selectedItem.toString().equals(genero)
+        }
     }
 
     private fun crearPublicacion() {
-        val ettitulo : EditText = findViewById(R.id.etTitulo)
+        ettitulo = findViewById(R.id.etTitulo)
         val titulo : String = ettitulo.text.toString()
 
-        val etDesc : EditText = findViewById(R.id.etDescPublicacion)
+        etDesc = findViewById(R.id.etDescPublicacion)
         val descripcion : String = etDesc.text.toString()
 
-        val cbxbox : CheckBox = findViewById(R.id.cbXbox)
-        val cbplaystation : CheckBox = findViewById(R.id.cbPlaystation)
-        val cbnintendo : CheckBox = findViewById(R.id.cbNintendo)
+        cbxbox = findViewById(R.id.cbXbox)
+        cbplaystation = findViewById(R.id.cbPlaystation)
+        cbnintendo = findViewById(R.id.cbNintendo)
 
         val xbox : Int = if (cbxbox.isChecked) 1 else 0
         val playstation : Int = if (cbplaystation.isChecked) 1 else 0
         val nintendo : Int = if (cbnintendo.isChecked) 1 else 0
 
-        val sgenero : Spinner = findViewById(R.id.sGenero)
+        sgenero = findViewById(R.id.sGenero)
+        val genero : String = sgenero.selectedItem as String
+
+        val parametros = mutableMapOf<String, Any?>()
+
+        parametros["id_publicaciones"] = id_publicacion
+        parametros["titulo"] = titulo
+        parametros["descripcion"] = descripcion
+        parametros["xbox"] = xbox.toString()
+        parametros["playstation"] = playstation.toString()
+        parametros["nintendo"] = nintendo.toString()
+        parametros["genero"] = genero
+
+        val post : JSONObject = JSONObject(parametros)
+
+        enviarPublicacion(post)
+    }
+
+    private fun editarPublicacion(){
+        ettitulo = findViewById(R.id.etTitulo)
+        val titulo : String = ettitulo.text.toString()
+
+        etDesc = findViewById(R.id.etDescPublicacion)
+        val descripcion : String = etDesc.text.toString()
+
+        cbxbox = findViewById(R.id.cbXbox)
+        cbplaystation = findViewById(R.id.cbPlaystation)
+        cbnintendo = findViewById(R.id.cbNintendo)
+
+        val xbox : Int = if (cbxbox.isChecked) 1 else 0
+        val playstation : Int = if (cbplaystation.isChecked) 1 else 0
+        val nintendo : Int = if (cbnintendo.isChecked) 1 else 0
+
+        sgenero = findViewById(R.id.sGenero)
         val genero : String = sgenero.selectedItem as String
 
         val parametros = mutableMapOf<String, Any?>()
@@ -74,7 +154,7 @@ class CrearActivity : AppCompatActivity() {
 
         val post : JSONObject = JSONObject(parametros)
 
-        enviarPublicacion(post)
+        modificarPublicacion(post)
     }
 
     private fun enviarPublicacion(post: JSONObject) {
@@ -83,6 +163,31 @@ class CrearActivity : AppCompatActivity() {
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
             url_crear,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    finish()
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
+    }
+
+    private fun modificarPublicacion(post: JSONObject) {
+        val queue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_modificar,
             post,
             {
                     response ->

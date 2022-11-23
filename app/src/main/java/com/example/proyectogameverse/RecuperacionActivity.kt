@@ -12,7 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
 class RecuperacionActivity : AppCompatActivity() {
-    private var url_recuperar : String = "http://192.168.1.87/gameverse_preservidor/usuario/recuperar.php"
+    private var url_recuperar : String = ""
     private lateinit var perfil : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +31,10 @@ class RecuperacionActivity : AppCompatActivity() {
         perfil = etperfil.text.toString()
 
         if(perfil.isNotEmpty()){
-            url_recuperar += "?correo=$perfil"
+            url_recuperar = "http://192.168.1.87/gameverse_preservidor/usuario/recuperar.php?correo=$perfil"
             leerPerfil()
         }else{
-            Toast.makeText(this,"Introduce el nombre o correo electrónico",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Introduce el correo electrónico",Toast.LENGTH_SHORT).show()
         }
     }
 

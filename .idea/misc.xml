@@ -10,7 +10,7 @@
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear_perfil.xml" value="0.2" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_datos.xml" value="0.24954710144927536" />
-        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_editar.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_editar.xml" value="0.25" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_grupos.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_menu.xml" value="0.24010416666666667" />
@@ -23,6 +23,7 @@
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/publicacion_row.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menucrear.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menueditar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menumodificar.xml" value="0.253125" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menuprincipal.xml" value="0.25416666666666665" />
       </map>
     </option>

@@ -2,11 +2,12 @@
     <string name="app_name">Proyecto Gameverse</string>
     <string name="ok">Ok</string>
     <string name="cancelar">Cancelar</string>
+    <string name="confirmacion">¿Quieres eliminar la siguiente publicación?</string>
     <string-array name="genero">
         <item></item>
         <item>Acción</item>
         <item>Plataforma</item>
-        <item>Carrerras</item>
+        <item>Carreras</item>
         <item>Peleas</item>
         <item>Shooter</item>
         <item>RPG</item>
