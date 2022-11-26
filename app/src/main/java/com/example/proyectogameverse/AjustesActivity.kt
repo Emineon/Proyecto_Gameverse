@@ -6,12 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 
 class AjustesActivity : AppCompatActivity() {
+    private var id_perfil : Int = 0
+    private var nombre : String = ""
+    private var fecha : String = ""
+    private var descripcion : String = ""
+    private var videojuego : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajustes)
+
+        ConfigUI()
 
         val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
 
@@ -41,6 +50,17 @@ class AjustesActivity : AppCompatActivity() {
 
         bcerrar.setOnClickListener{
             mensajeConfirmacion()
+        }
+    }
+
+    private fun ConfigUI() {
+        val intent = intent
+        if(intent != null){
+            id_perfil = intent.getIntExtra("id_perfil",0)
+            nombre = intent.getStringExtra("nombre").toString()
+
+            val tvnombre : TextView = findViewById(R.id.tvNombre)
+            tvnombre.setText(nombre)
         }
     }
 

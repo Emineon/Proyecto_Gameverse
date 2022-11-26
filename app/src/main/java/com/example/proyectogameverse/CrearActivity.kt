@@ -46,11 +46,11 @@ class CrearActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.opc_crear){
-            Log.i("",url_crear)
+            //Log.i("",url_crear)
             crearPublicacion()
         }
         if(item.itemId == R.id.opc_cambios){
-            Log.i("",url_modificar)
+            //Log.i("",url_modificar)
             editarPublicacion()
         }
 
@@ -87,7 +87,7 @@ class CrearActivity : AppCompatActivity() {
             cbplaystation.isChecked = playstation
             cbnintendo.isChecked = nintendo
 
-            sgenero.selectedItem.toString().equals(genero)
+            sgenero.selectedItem.equals(genero)
         }
     }
 
@@ -109,19 +109,23 @@ class CrearActivity : AppCompatActivity() {
         sgenero = findViewById(R.id.sGenero)
         val genero : String = sgenero.selectedItem as String
 
-        val parametros = mutableMapOf<String, Any?>()
+        if(titulo.isNotEmpty() && descripcion.isNotEmpty() && genero.isNotEmpty()){
+            val parametros = mutableMapOf<String, Any?>()
 
-        parametros["id_publicaciones"] = id_publicacion
-        parametros["titulo"] = titulo
-        parametros["descripcion"] = descripcion
-        parametros["xbox"] = xbox.toString()
-        parametros["playstation"] = playstation.toString()
-        parametros["nintendo"] = nintendo.toString()
-        parametros["genero"] = genero
+            parametros["id"] = id
+            parametros["titulo"] = titulo
+            parametros["descripcion"] = descripcion
+            parametros["xbox"] = xbox.toString()
+            parametros["playstation"] = playstation.toString()
+            parametros["nintendo"] = nintendo.toString()
+            parametros["genero"] = genero
 
-        val post : JSONObject = JSONObject(parametros)
+            val post : JSONObject = JSONObject(parametros)
 
-        enviarPublicacion(post)
+            enviarPublicacion(post)
+        }else{
+            Toast.makeText(this,"Llenar el formulario para publicar",Toast.LENGTH_SHORT)
+        }
     }
 
     private fun editarPublicacion(){
@@ -142,30 +146,36 @@ class CrearActivity : AppCompatActivity() {
         sgenero = findViewById(R.id.sGenero)
         val genero : String = sgenero.selectedItem as String
 
-        val parametros = mutableMapOf<String, Any?>()
+        if(titulo.isNotEmpty() && descripcion.isNotEmpty() && genero.isNotEmpty()){
+            val parametros = mutableMapOf<String, Any?>()
 
-        parametros["id"] = id
-        parametros["titulo"] = titulo
-        parametros["descripcion"] = descripcion
-        parametros["xbox"] = xbox.toString()
-        parametros["playstation"] = playstation.toString()
-        parametros["nintendo"] = nintendo.toString()
-        parametros["genero"] = genero
+            parametros["id_publicaciones"] = id_publicacion
+            parametros["titulo"] = titulo
+            parametros["descripcion"] = descripcion
+            parametros["xbox"] = xbox.toString()
+            parametros["playstation"] = playstation.toString()
+            parametros["nintendo"] = nintendo.toString()
+            parametros["genero"] = genero
 
-        val post : JSONObject = JSONObject(parametros)
+            val post : JSONObject = JSONObject(parametros)
 
-        modificarPublicacion(post)
+            modificarPublicacion(post)
+        }else{
+            Toast.makeText(this,"La publicación esta vacío para actualizar",Toast.LENGTH_SHORT)
+        }
     }
 
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
+
+        Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
             url_crear,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     finish()
                 }else{
@@ -174,7 +184,7 @@ class CrearActivity : AppCompatActivity() {
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
             }
         )
@@ -185,12 +195,14 @@ class CrearActivity : AppCompatActivity() {
     private fun modificarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
 
+        Log.i("",post.toString())
+
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
             url_modificar,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     finish()
                 }else{
@@ -199,7 +211,7 @@ class CrearActivity : AppCompatActivity() {
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
             }
         )

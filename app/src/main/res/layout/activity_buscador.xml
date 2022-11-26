@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etBuscar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,9 +38,10 @@
         android:layout_marginTop="24dp"
         android:text="Selección de búsqueda"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etBuscar" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,19 +50,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView34">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rbPublicaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Publicaciones" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rbGrupos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Grupos" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rbPerfiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Perfiles" />
@@ -76,10 +78,10 @@
         android:layout_marginEnd="16dp"
         android:text="Filtro de plataforma"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etBuscar" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/cbXboxBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -89,22 +91,56 @@
         app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/cbPlaystationBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:text="Playstation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
+        app:layout_constraintTop_toBottomOf="@+id/cbXboxBuscar" />
 
     <CheckBox
-        android:id="@+id/checkBox6"
+        android:id="@+id/cbNintendoBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="28dp"
         android:text="Nintendo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox5" />
+        app:layout_constraintTop_toBottomOf="@+id/cbPlaystationBuscar" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Genero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Spinner
+        android:id="@+id/sGeneroBuscar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/genero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <Button
+        android:id="@+id/bBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Buscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sGeneroBuscar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

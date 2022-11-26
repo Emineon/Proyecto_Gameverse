@@ -19,7 +19,11 @@ import org.json.JSONObject
 class MenuPrincipalActivity : AppCompatActivity() {
     private var url_perfil : String = "http://192.168.1.87/gameverse_preservidor/perfil.php"
     private lateinit var nombre : String
+
     private var id_perfil : Int = 0
+    private var fecha : String = ""
+    private var descripcion : String = ""
+    private var videojuego : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +63,15 @@ class MenuPrincipalActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         id_perfil = savedInstanceState.getInt("id")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val intent = Intent(this, MainActivity::class.java);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -117,6 +130,9 @@ class MenuPrincipalActivity : AppCompatActivity() {
             val perfil = lista[i] as JSONObject
 
             id_perfil = perfil.getInt("id")
+            //fecha = perfil.getString("fecha")
+            descripcion = perfil.getString("descripcion")
+            videojuego = perfil.getString("videojuego")
         }
     }
 
@@ -129,6 +145,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
     private fun dirigirAjustes() {
         val intent = Intent(this, AjustesActivity::class.java)
         intent.putExtra("id_perfil",id_perfil)
+        intent.putExtra("nombre",nombre)
+        //intent.putExtra("fecha",fecha)
+        intent.putExtra("descripcion",descripcion)
+        intent.putExtra("videojuego",videojuego)
 
         startActivity(intent)
     }

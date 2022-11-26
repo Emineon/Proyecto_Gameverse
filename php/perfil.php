@@ -21,6 +21,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $indice = 0;
         while($fila = mysqli_fetch_assoc($resultado)){
             $perfil[$indice]["id"] = (int) $fila['id'];
+            $perfil[$indice]["fecha"] = $fila['fecha_nacimiento'];
+            $perfil[$indice]["descripcion"] = $fila['descripcion'];
+            $perfil[$indice]["videojuego"] = $fila['videojuego'];
 
             $indice++;
         }

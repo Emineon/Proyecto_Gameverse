@@ -118,22 +118,11 @@
         android:id="@+id/bConfirmar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="144dp"
         android:layout_marginTop="36dp"
         android:backgroundTint="@android:color/holo_blue_light"
         android:text="Confirmar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etVideojuego" />
-
-    <Button
-        android:id="@+id/bSalir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="72dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="Salir"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etVideojuego" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
