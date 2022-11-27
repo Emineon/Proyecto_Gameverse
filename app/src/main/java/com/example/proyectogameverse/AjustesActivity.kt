@@ -58,6 +58,8 @@ class AjustesActivity : AppCompatActivity() {
         if(intent != null){
             id_perfil = intent.getIntExtra("id_perfil",0)
             nombre = intent.getStringExtra("nombre").toString()
+            descripcion = intent.getStringExtra("descripcion").toString()
+            videojuego = intent.getStringExtra("videojuego").toString()
 
             val tvnombre : TextView = findViewById(R.id.tvNombre)
             tvnombre.setText(nombre)
@@ -68,13 +70,16 @@ class AjustesActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply{
             type = "image/*"
         }
-        //if(intent.resolveActivity(packageManager) != null){
-            startActivityForResult(intent,1)
-        //}
+
+        startActivityForResult(intent,1)
     }
 
     private fun cambiarDatos() {
         val intent = Intent(this, DatosActivity::class.java)
+        intent.putExtra("id_perfil",id_perfil)
+        intent.putExtra("nombre",nombre)
+        intent.putExtra("descripcion",descripcion)
+        intent.putExtra("videojuego",videojuego)
 
         startActivity(intent)
     }

@@ -1,14 +1,12 @@
 package com.example.proyectogameverse
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -33,6 +31,12 @@ class CrearActivity : AppCompatActivity() {
         setContentView(R.layout.activity_crear)
 
         configAPI()
+
+        val bsubir : Button = findViewById(R.id.bSubir)
+
+        bsubir.setOnClickListener{
+            seleccionarImagen()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,6 +93,14 @@ class CrearActivity : AppCompatActivity() {
 
             sgenero.selectedItem.equals(genero)
         }
+    }
+
+    private fun seleccionarImagen() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply{
+            type = "image/*"
+        }
+
+        startActivityForResult(intent,1)
     }
 
     private fun crearPublicacion() {
@@ -168,7 +180,7 @@ class CrearActivity : AppCompatActivity() {
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
 
-        Log.i("",post.toString())
+        //Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
@@ -195,7 +207,7 @@ class CrearActivity : AppCompatActivity() {
     private fun modificarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
 
-        Log.i("",post.toString())
+        //Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,

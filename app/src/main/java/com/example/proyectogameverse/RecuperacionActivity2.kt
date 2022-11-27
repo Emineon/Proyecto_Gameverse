@@ -57,8 +57,6 @@ class RecuperacionActivity2 : AppCompatActivity() {
     private fun leerPassword() {
         val queue : RequestQueue = Volley.newRequestQueue(this)
 
-        //Log.i("",url_recuperar2)
-
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.PUT,
             url_recuperar2,
@@ -67,6 +65,7 @@ class RecuperacionActivity2 : AppCompatActivity() {
                     response ->
                 if(response.getBoolean("exito")){
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     startActivity(intent)
                 }else{

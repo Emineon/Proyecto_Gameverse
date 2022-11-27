@@ -70,7 +70,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         val intent = Intent(this, MainActivity::class.java);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("EXIT", true);
         startActivity(intent);
     }
 

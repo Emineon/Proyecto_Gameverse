@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Proyecto Gameverse</string>
+    <string name="app_name">Gameverse</string>
     <string name="ok">Ok</string>
     <string name="cancelar">Cancelar</string>
     <string name="confirmacion">¿Quieres eliminar la siguiente publicación?</string>

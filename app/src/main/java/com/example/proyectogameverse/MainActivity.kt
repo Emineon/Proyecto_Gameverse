@@ -11,11 +11,15 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private var url_login : String = "http://192.168.1.87/gameverse_preservidor/usuario/login.php"
+
     private lateinit var perfil : String
+
+    private var nombre : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         bolvidar.setOnClickListener{
             val intent = Intent(this, RecuperacionActivity::class.java)
 
-            startActivityForResult(intent,2)
+            startActivity(intent)
         }
 
         val bregistrar : Button = findViewById(R.id.bRegistrar)
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         bregistrar.setOnClickListener{
             val intent = Intent(this, CrearPerfilActivity::class.java)
 
-            startActivityForResult(intent,3)
+            startActivity(intent)
         }
     }
 
@@ -74,10 +78,7 @@ class MainActivity : AppCompatActivity() {
             {
                 response ->
                 if(response.getBoolean("exito")){
-                    val intent = Intent(this, MenuPrincipalActivity::class.java)
-                    intent.putExtra("nombre",perfil)
-
-                    startActivityForResult(intent,1)
+                    obtenerUsuario(response.getJSONArray("usuario"))
                 }
             },
             {
@@ -87,5 +88,18 @@ class MainActivity : AppCompatActivity() {
         )
 
         queue.add(request)
+    }
+
+    private fun obtenerUsuario(usuario : JSONArray) {
+        for(i in 0 .. usuario.length() - 1){
+            val perfil = usuario[i] as JSONObject
+
+            nombre = perfil.getString("nombre")
+        }
+
+        val intent = Intent(this, MenuPrincipalActivity::class.java)
+        intent.putExtra("nombre",nombre)
+
+        startActivity(intent)
     }
 }

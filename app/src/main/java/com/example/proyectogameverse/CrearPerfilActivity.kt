@@ -70,8 +70,6 @@ class CrearPerfilActivity : AppCompatActivity() {
     private fun enviarRegistro(post : JSONObject) {
         val quece = Volley.newRequestQueue(this)
 
-        //Log.i("",post.getString("nombre"))
-
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
             url_registrar,
