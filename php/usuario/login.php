@@ -3,7 +3,8 @@ include '../config.php';
 
 $retorno = array(
     'exito' => false,
-    'mensaje' => "N/A"
+    'mensaje' => "N/A",
+    'usuario' => array()
 );
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -14,12 +15,29 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $passmd5 = md5($password);
 
-    $sel = "select * from dbperfil WHERE nombre = '$nombre' AND password = '$passmd5'";
-    $resultado = mysqli_query($conexion, $sel);
+    $select = "select * from dbperfil WHERE password = '$passmd5'";
+
+    if(filter_var($nombre, FILTER_VALIDATE_EMAIL) !== false){
+        $select .= " AND email = '$nombre'";
+    }else{
+        $select .= " AND nombre = '$nombre'";
+    }
+
+    $resultado = mysqli_query($conexion, $select);
 
     if (mysqli_num_rows($resultado) == 1) {
+        $usuario = array();
+
+        $i = 0;
+        while($fila = mysqli_fetch_assoc($resultado)){
+            $usuario[$i]["nombre"] = $fila['nombre'];
+
+            $i++;
+        }
+
         $retorno['exito'] = true;
         $retorno['mensaje'] = "Existe dicha cuenta";
+        $retorno['usuario'] = $usuario;
     } else {
         $retorno['mensaje'] = "Error en BD";
     }
