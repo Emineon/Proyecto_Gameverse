@@ -19,10 +19,12 @@ class DatosActivity : AppCompatActivity() {
 
     private lateinit var etnombre : EditText
     private lateinit var etdescripcion : EditText
+    private lateinit var etfecha : EditText
     private lateinit var etvideojuego : EditText
 
     private var id_perfil : Int = 0
     private var nombre : String = ""
+    private var fecha : String = ""
     private var descripcion : String = ""
     private var videojuego : String = ""
 
@@ -45,14 +47,17 @@ class DatosActivity : AppCompatActivity() {
             id_perfil = intent.getIntExtra("id_perfil",0)
             nombre = intent.getStringExtra("nombre").toString()
             descripcion = intent.getStringExtra("descripcion").toString()
+            fecha = intent.getStringExtra("fecha").toString()
             videojuego = intent.getStringExtra("videojuego").toString()
 
             etnombre = findViewById(R.id.etNombre2)
             etdescripcion = findViewById(R.id.etDescripcion)
+            etfecha = findViewById(R.id.etCumple)
             etvideojuego = findViewById(R.id.etVideojuego)
 
             etnombre.setText(nombre)
             etdescripcion.setText(descripcion)
+            etfecha.setText(fecha)
             etvideojuego.setText(videojuego)
         }
     }

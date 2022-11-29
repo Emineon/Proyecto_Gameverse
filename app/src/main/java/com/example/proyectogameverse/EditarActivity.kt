@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,6 +24,7 @@ class EditarActivity : AppCompatActivity() {
     private var playstation : Boolean = false
     private var nintendo : Boolean = false
     private var genero : String = ""
+    private var miniatura : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +43,17 @@ class EditarActivity : AppCompatActivity() {
             playstation = intent.getBooleanExtra("playstation",false)
             nintendo = intent.getBooleanExtra("nintendo",false)
             genero = intent.getStringExtra("genero").toString()
+            miniatura = intent.getIntExtra("miniatura",0)
 
             val tvpublicacion : TextView = findViewById(R.id.tvPublicacion)
             val tvdescripcion : TextView = findViewById(R.id.tvDescripcion)
+            val ivimagen : ImageView = findViewById(R.id.ivImagen)
+            val tvfecha : TextView = findViewById(R.id.tvFecha)
 
             tvpublicacion.text = titulo
             tvdescripcion.text = descripcion
+            ivimagen.setImageResource(miniatura)
+            tvfecha.text = "Fecha de última modificación:"
         }
     }
 

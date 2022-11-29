@@ -2,8 +2,12 @@ package com.example.proyectogameverse
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -58,6 +62,7 @@ class AjustesActivity : AppCompatActivity() {
         if(intent != null){
             id_perfil = intent.getIntExtra("id_perfil",0)
             nombre = intent.getStringExtra("nombre").toString()
+            fecha = intent.getStringExtra("fecha").toString()
             descripcion = intent.getStringExtra("descripcion").toString()
             videojuego = intent.getStringExtra("videojuego").toString()
 
@@ -74,11 +79,32 @@ class AjustesActivity : AppCompatActivity() {
         startActivityForResult(intent,1)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            if(data != null){
+                val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
+
+                val fullPhotoUri = data.data
+                Log.i("",fullPhotoUri.toString())
+                val imageBitmap = BitmapFactory.decodeFile(fullPhotoUri.toString())//data.extras?.get("data") as Bitmap
+
+                ibperfil.setImageBitmap(imageBitmap)
+            }
+        }
+    }
+
+    /*private fun imprimirFoto(fullPhotoUri: Uri?) {
+
+    }*/
+
     private fun cambiarDatos() {
         val intent = Intent(this, DatosActivity::class.java)
         intent.putExtra("id_perfil",id_perfil)
         intent.putExtra("nombre",nombre)
         intent.putExtra("descripcion",descripcion)
+        intent.putExtra("fecha",fecha)
         intent.putExtra("videojuego",videojuego)
 
         startActivity(intent)

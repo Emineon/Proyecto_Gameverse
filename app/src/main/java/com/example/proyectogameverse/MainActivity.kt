@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -15,7 +16,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
-    private var url_login : String = "http://192.168.1.87/gameverse_preservidor/usuario/login.php"
+    private var url_login : String = ""
 
     private lateinit var perfil : String
 
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             verificarPerfil()
         }
 
-        val bolvidar : Button = findViewById(R.id.bOlvidar)
+        val tvcambiar : TextView = findViewById(R.id.tvCambiar)
 
-        bolvidar.setOnClickListener{
+        tvcambiar.setOnClickListener{
             val intent = Intent(this, RecuperacionActivity::class.java)
 
             startActivity(intent)
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         if(perfil.isNotEmpty()){
             if(password.isNotEmpty()){
-                url_login += "?nombre=$perfil&password=$password"
+                url_login = "http://192.168.1.87/gameverse_preservidor/usuario/login.php?nombre=$perfil&password=$password"
 
                 leerAcceso()
             }else{
@@ -79,6 +80,9 @@ class MainActivity : AppCompatActivity() {
                 response ->
                 if(response.getBoolean("exito")){
                     obtenerUsuario(response.getJSONArray("usuario"))
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }
             },
             {

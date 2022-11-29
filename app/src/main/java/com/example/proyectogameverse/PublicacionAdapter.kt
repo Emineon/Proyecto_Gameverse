@@ -33,6 +33,7 @@ class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
             intent.putExtra("playstation",publicacion.playstation)
             intent.putExtra("nintendo",publicacion.nintendo)
             intent.putExtra("genero",publicacion.genero)
+            intent.putExtra("miniatura",R.drawable.inc_videojuego)
 
             holder.itemView.context.startActivity(intent)
         }

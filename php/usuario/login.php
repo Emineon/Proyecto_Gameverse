@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
         $retorno['mensaje'] = "Existe dicha cuenta";
         $retorno['usuario'] = $usuario;
     } else {
-        $retorno['mensaje'] = "Error en BD";
+        $retorno['mensaje'] = "El nombre/correo o la contrseña es incorrecto";
     }
 
     header('Content-type: application/json');

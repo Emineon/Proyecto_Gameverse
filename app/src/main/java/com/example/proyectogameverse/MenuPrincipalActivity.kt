@@ -34,7 +34,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
         chippublicaciones.setOnClickListener{
             val intent = Intent(this, PublicacionesActivity::class.java)
             intent.putExtra("id_perfil",id_perfil)
-            Log.i("",id_perfil.toString())
 
             startActivity(intent)
         }
@@ -129,7 +128,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
             val perfil = lista[i] as JSONObject
 
             id_perfil = perfil.getInt("id")
-            //fecha = perfil.getString("fecha")
+            fecha = perfil.getString("fecha")
             descripcion = perfil.getString("descripcion")
             videojuego = perfil.getString("videojuego")
         }
@@ -145,7 +144,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, AjustesActivity::class.java)
         intent.putExtra("id_perfil",id_perfil)
         intent.putExtra("nombre",nombre)
-        //intent.putExtra("fecha",fecha)
+        intent.putExtra("fecha",fecha)
         intent.putExtra("descripcion",descripcion)
         intent.putExtra("videojuego",videojuego)
 
