@@ -7,7 +7,7 @@
     tools:context=".ResultadoBuscarActivity">
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/tvBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,5 +27,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBuscar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

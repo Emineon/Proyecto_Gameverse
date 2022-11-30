@@ -67,8 +67,7 @@ class EditarActivity : AppCompatActivity() {
             intentEditar()
         }
         if(item.itemId == R.id.opc_eliminar){
-            url_borrar = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php"
-            url_borrar += "?id_publicaciones=$id"
+            url_borrar = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php?id_publicaciones=$id"
             mensajeBorrar()
         }
 

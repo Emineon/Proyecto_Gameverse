@@ -71,8 +71,6 @@ class PublicacionesActivity : AppCompatActivity() {
     private fun leerLista() {
         val queue : RequestQueue = Volley.newRequestQueue(this)
 
-        Log.i("",url_listar)
-
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.GET,
             url_listar,
