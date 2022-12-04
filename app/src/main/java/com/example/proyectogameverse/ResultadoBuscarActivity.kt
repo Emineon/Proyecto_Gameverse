@@ -15,7 +15,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class ResultadoBuscarActivity : AppCompatActivity() {
-    private var url_buscar : String = "http://192.168.1.87/gameverse_preservidor/buscador/publicaciones.php"
+    private var url_buscar : String = ""
     private lateinit var adapter : BuscadorAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +38,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
     private fun ConfigUI() {
         val intent = intent
         if(intent != null){
+            val id_perfil = intent.getIntExtra("id_perfil",0)
             val buscar = intent.getStringExtra("buscar")
             val publicaciones = intent.getIntExtra("publicaciones",0)
             val grupos = intent.getIntExtra("grupos",0)
@@ -51,27 +52,45 @@ class ResultadoBuscarActivity : AppCompatActivity() {
 
             val parametros = mutableMapOf<String, Any?>()
 
-            parametros["buscar"] = buscar
-            parametros["xbox"] = xbox.toString()
-            parametros["playstation"] = playstation.toString()
-            parametros["nintendo"] = nintendo.toString()
-            parametros["genero"] = genero
-
-            val post : JSONObject = JSONObject(parametros)
-
             if(publicaciones != 0){ //Buscar publicaciones seleccionadas
+                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/publicaciones.php"
+
+                parametros["buscar"] = buscar
+                parametros["xbox"] = xbox.toString()
+                parametros["playstation"] = playstation.toString()
+                parametros["nintendo"] = nintendo.toString()
+                parametros["genero"] = genero
+
+                val post : JSONObject = JSONObject(parametros)
+
                 tvbuscar.setText("Publicaciones")
+
                 buscarPublicaciones(post)
             }
 
             if(grupos != 0){ //Buscar grupos seleccionados
+                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/grupos.php"
+
+                parametros["buscar"] = buscar
+
+                val post : JSONObject = JSONObject(parametros)
+
                 tvbuscar.setText("Grupos")
-                Toast.makeText(applicationContext,"Se selecciono la opción de buscar 'grupos'", Toast.LENGTH_SHORT).show()
+
+                buscarGrupos(post)
             }
 
             if(perfiles != 0){ //Buscar perfiles seleccionados
+                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/usuarios.php"
+
+                parametros["id"] = id_perfil
+                parametros["buscar"] = buscar
+
+                val post : JSONObject = JSONObject(parametros)
+
                 tvbuscar.setText("Perfiles")
-                Toast.makeText(applicationContext,"Se selecciono la opción de buscar 'perfiles'",Toast.LENGTH_SHORT).show()
+
+                buscarPerfiles(post)
             }
         }
     }
@@ -114,7 +133,98 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             buscar.id_publicacion = busqueda.getInt("id")
             buscar.titulo = busqueda.getString("titulo")
             buscar.descripcion = busqueda.getString("descripcion")
+            buscar.thumbnail = busqueda.getString("url")
             buscar.usuario = busqueda.getString("usuario")
+
+            adapter.guardar(buscar)
+        }
+    }
+
+    private fun buscarGrupos(post: JSONObject) {
+        val quece = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_buscar,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    llenarGrupos(response.getJSONArray("lista"))
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(applicationContext,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        quece.add(request)
+    }
+
+    private fun llenarGrupos(lista: JSONArray) {
+        adapter.limpiar()
+
+        for(i in 0 .. lista.length() - 1){
+            val busqueda = lista[i] as JSONObject
+
+            var buscar = Buscar()
+
+            buscar.id_grupos = busqueda.getInt("id")
+            buscar.nombre_grupo = busqueda.getString("titulo")
+            buscar.descripcion_grupo = busqueda.getString("descripcion")
+            buscar.thumbnail = busqueda.getString("url")
+
+            adapter.guardar(buscar)
+        }
+    }
+
+    private fun buscarPerfiles(post: JSONObject) {
+        val quece = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_buscar,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    llenarPerfiles(response.getJSONArray("lista"))
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(applicationContext,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        quece.add(request)
+    }
+
+    private fun llenarPerfiles(lista: JSONArray) {
+        adapter.limpiar()
+
+        for(i in 0 .. lista.length() - 1){
+            val busqueda = lista[i] as JSONObject
+
+            var buscar = Buscar()
+
+            buscar.id_grupos = busqueda.getInt("id")
+            buscar.nombre_grupo = busqueda.getString("nombre")
+            buscar.email = busqueda.getString("email")
+            buscar.descripcion_perfil = busqueda.getString("descripcion")
+            buscar.videojuego = busqueda.getString("videojuego")
+            buscar.thumbnail = busqueda.getString("url")
 
             adapter.guardar(buscar)
         }

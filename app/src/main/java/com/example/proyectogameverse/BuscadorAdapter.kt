@@ -20,7 +20,17 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
     override fun onBindViewHolder(holder: BuscadorHolder, position: Int) {
         val busqueda : Buscar = data.get(position)
 
-        holder.tvtitulo.text = busqueda.titulo
+        if(busqueda.id_publicacion != 0){
+            holder.tvtitulo.text = busqueda.titulo
+        }
+
+        if(busqueda.id_grupos != 0){
+            holder.tvtitulo.text = busqueda.nombre_grupo
+        }
+
+        if(busqueda.id_perfil != 0){
+            holder.tvtitulo.text = busqueda.nombre
+        }
     }
 
     override fun getItemCount(): Int {

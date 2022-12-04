@@ -38,9 +38,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $i = 0;
 
         while($fila = mysqli_fetch_assoc($resultado)){
+            $publicaciones[$i]["id"] = (int) $fila['id'];
             $publicaciones[$i]["titulo"] = $fila['titulo'];
             $publicaciones[$i]["descripcion"] = $fila['descripción'];
-            $publicaciones[$i]["xbox"] = $fila['op_xbox'] == 1;
+            $publicaciones[$i]["url"] = $fila['url_archivo'];
             $id_perfil = (int) $fila['id_perfil'];
 
             $usuario = "select * from dbperfil where id = $id_perfil";

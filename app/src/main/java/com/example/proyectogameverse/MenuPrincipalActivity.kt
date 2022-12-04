@@ -136,6 +136,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
     private fun dirigirBusqueda() {
         val intent = Intent(this, BuscadorActivity::class.java)
+        intent.putExtra("id_perfil",id_perfil)
 
         startActivity(intent)
     }

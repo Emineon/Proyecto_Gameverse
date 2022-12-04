@@ -11,9 +11,13 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class BuscadorActivity : AppCompatActivity() {
+    private var id_perfil : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buscador)
+
+        configAPI()
 
         val bbuscar : Button = findViewById(R.id.bBuscar)
 
@@ -22,7 +26,14 @@ class BuscadorActivity : AppCompatActivity() {
         }
     }
 
-    private fun buscarRegistro() {
+    private fun configAPI() {
+        val intent = intent
+        if(intent != null){
+            id_perfil = intent.getIntExtra("id_perfil",0)
+        }
+    }
+
+    private fun buscarRegistro() { //Script para cargar los datos seleccionados
         val etbuscar : EditText = findViewById(R.id.etBuscar)
         val buscar : String = etbuscar.text.toString()
 
@@ -46,6 +57,7 @@ class BuscadorActivity : AppCompatActivity() {
         val genero : String = sgenerobuscar.selectedItem as String
 
         val intent = Intent(this, ResultadoBuscarActivity::class.java)
+        intent.putExtra("id_perfil",id_perfil)
         intent.putExtra("buscar",buscar)
         intent.putExtra("publicaciones",publicaciones)
         intent.putExtra("grupos",grupos)
