@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 
 class EditarActivity : AppCompatActivity() {
     private var url_borrar : String = ""
@@ -24,6 +25,7 @@ class EditarActivity : AppCompatActivity() {
     private var playstation : Boolean = false
     private var nintendo : Boolean = false
     private var genero : String = ""
+    private var url_imagen = ""
     private var miniatura : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class EditarActivity : AppCompatActivity() {
             playstation = intent.getBooleanExtra("playstation",false)
             nintendo = intent.getBooleanExtra("nintendo",false)
             genero = intent.getStringExtra("genero").toString()
+            url_imagen = intent.getStringExtra("imagen").toString()
             miniatura = intent.getIntExtra("miniatura",0)
 
             val tvpublicacion : TextView = findViewById(R.id.tvPublicacion)
@@ -52,8 +55,13 @@ class EditarActivity : AppCompatActivity() {
 
             tvpublicacion.text = titulo
             tvdescripcion.text = descripcion
-            ivimagen.setImageResource(miniatura)
             tvfecha.text = "Fecha de última modificación:"
+
+            if(url_imagen != ""){
+                Picasso.get().load(url_imagen).into(ivimagen)
+            }else{
+                ivimagen.setImageResource(miniatura)
+            }
         }
     }
 
@@ -84,6 +92,7 @@ class EditarActivity : AppCompatActivity() {
         intent.putExtra("playstation",playstation)
         intent.putExtra("nintendo",nintendo)
         intent.putExtra("genero",genero)
+        intent.putExtra("imagen",url_imagen)
 
         startActivity(intent)
     }

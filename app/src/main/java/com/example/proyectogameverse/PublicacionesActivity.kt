@@ -108,6 +108,7 @@ class PublicacionesActivity : AppCompatActivity() {
             publicacion.playstation = publicaciones.getBoolean("playstation")
             publicacion.nintendo = publicaciones.getBoolean("nintendo")
             publicacion.genero = publicaciones.getString("genero")
+            publicacion.thumbnail = publicaciones.getString("imagen")
 
             adapter.guardar(publicacion)
         }

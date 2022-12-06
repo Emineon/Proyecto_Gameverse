@@ -16,15 +16,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $xbox = $post['xbox'];
         $playstation = $post['playstation'];
         $nintendo = $post['nintendo'];
-        //$archivo = $post['archivo'];
         $genero = $post['genero'];
+        $imagen = $post['imagen'];
 
         $update = "update dbpublicaciones set titulo = '$titulo',
                 descripción = '$descripcion',
                 op_xbox = $xbox,
                 op_playstation = $playstation,
                 op_nintendo = $nintendo,
-                genero = '$genero'
+                genero = '$genero',
+                archivo_url = '$imagen',
+                fecha_actualizacion = NOW()
                 where id = $id";
 
         $resultado = mysqli_query($conexion, $update);

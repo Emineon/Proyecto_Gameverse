@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
     private lateinit var data : ArrayList<Publicacion>
@@ -21,6 +22,9 @@ class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
     override fun onBindViewHolder(holder: PublicacionHolder, position: Int) {
         val publicacion : Publicacion = data.get(position)
 
+        if(publicacion.thumbnail != "") {
+            Picasso.get().load(publicacion.thumbnail).into(holder.ivthumbnail)
+        }
         holder.tvtitulo.text = publicacion.titulo
 
         holder.itemView.setOnClickListener{
@@ -33,6 +37,7 @@ class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
             intent.putExtra("playstation",publicacion.playstation)
             intent.putExtra("nintendo",publicacion.nintendo)
             intent.putExtra("genero",publicacion.genero)
+            intent.putExtra("imagen",publicacion.thumbnail)
             intent.putExtra("miniatura",R.drawable.inc_videojuego)
 
             holder.itemView.context.startActivity(intent)

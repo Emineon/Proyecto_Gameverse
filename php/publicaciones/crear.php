@@ -16,11 +16,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $xbox = $post['xbox'];
         $playstation = $post['playstation'];
         $nintendo = $post['nintendo'];
-        //$archivo = $post['archivo'];
         $genero = $post['genero'];
+        $imagen = $post['imagen'];
 
-        $insert = "insert into dbpublicaciones (id_perfil, titulo, descripción, op_xbox, op_playstation, op_nintendo, genero) 
-                values ($id_perfil, '$titulo', '$descripcion', $xbox, $playstation, $nintendo, '$genero')";
+        $insert = "insert into dbpublicaciones (id_perfil, titulo, descripción, op_xbox, op_playstation, op_nintendo, genero, archivo_url, fecha_creacion, fecha_actualizacion) 
+                values ($id_perfil, '$titulo', '$descripcion', $xbox, $playstation, $nintendo, '$genero', '$imagen', NOW(), NOW())";
 
         $resultado = mysqli_query($conexion, $insert);
 

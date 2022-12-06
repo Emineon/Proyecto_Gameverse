@@ -1,20 +1,28 @@
 package com.example.proyectogameverse
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CrearActivity : AppCompatActivity() {
     private var url_crear : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/crear.php"
     private var url_modificar : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php"
+    private var url_imagen = ""
 
     private lateinit var ettitulo : EditText
     private lateinit var etDesc : EditText
@@ -25,6 +33,10 @@ class CrearActivity : AppCompatActivity() {
 
     private var id : Int = 0
     private var id_publicacion : Int = 0
+    private var nombre_imagen : String = ""
+    private lateinit var uri_guardado : Uri
+    
+    private lateinit var storage : FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +44,8 @@ class CrearActivity : AppCompatActivity() {
 
         configAPI()
 
+        storage = Firebase.storage
+        
         val bsubir : Button = findViewById(R.id.bSubir)
 
         bsubir.setOnClickListener{
@@ -50,11 +64,9 @@ class CrearActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.opc_crear){
-            //Log.i("",url_crear)
             crearPublicacion()
         }
         if(item.itemId == R.id.opc_cambios){
-            //Log.i("",url_modificar)
             editarPublicacion()
         }
 
@@ -74,6 +86,7 @@ class CrearActivity : AppCompatActivity() {
             val playstation = intent.getBooleanExtra("playstation",false)
             val nintendo = intent.getBooleanExtra("nintendo",false)
             val genero = intent.getStringExtra("genero")
+            url_imagen = intent.getStringExtra("imagen").toString()
 
             ettitulo = findViewById(R.id.etTitulo)
             etDesc = findViewById(R.id.etDescPublicacion)
@@ -92,6 +105,8 @@ class CrearActivity : AppCompatActivity() {
             cbnintendo.isChecked = nintendo
 
             sgenero.selectedItem.equals(genero)
+
+            mostrarImagen()
         }
     }
 
@@ -101,6 +116,59 @@ class CrearActivity : AppCompatActivity() {
         }
 
         startActivityForResult(intent,1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == 1){
+                if(data != null) {
+                    val uri: Uri? = data.data
+
+                    cargaImagen(uri)
+                }
+            }
+        }
+    }
+
+    private fun cargaImagen(uri: Uri?) {
+        if(uri != null){
+            uri_guardado = uri
+            nombre_imagen = generarNombreArchivo()
+
+            mostrarImagen()
+
+            subirImagen()
+        }
+    }
+
+    private fun subirImagen() {
+        var storageRef = storage.getReference("imagenes/${nombre_imagen}")
+        var carga = storageRef.putFile(uri_guardado)
+
+        carga.addOnFailureListener{ error ->
+            Log.i("VideoGameActivity",error.toString())
+        }.addOnSuccessListener{ task ->
+            storageRef.downloadUrl.addOnSuccessListener{ it
+                url_imagen = it.toString()
+            }
+        }
+    }
+
+    private fun generarNombreArchivo(): String {
+        val time = Calendar.getInstance().time
+        val formatime = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss")
+        val current = formatime.format(time)
+        return "img_$current"
+    }
+
+    private fun mostrarImagen() {
+        val tvimagen : TextView = findViewById(R.id.tvImagen)
+        tvimagen.setText(nombre_imagen)
+
+        val cancelar_subida : ImageView = findViewById(R.id.cancelar_subida)
+        cancelar_subida.visibility = View.VISIBLE
     }
 
     private fun crearPublicacion() {
@@ -131,6 +199,7 @@ class CrearActivity : AppCompatActivity() {
             parametros["playstation"] = playstation.toString()
             parametros["nintendo"] = nintendo.toString()
             parametros["genero"] = genero
+            parametros["imagen"] = url_imagen
 
             val post : JSONObject = JSONObject(parametros)
 
@@ -168,6 +237,7 @@ class CrearActivity : AppCompatActivity() {
             parametros["playstation"] = playstation.toString()
             parametros["nintendo"] = nintendo.toString()
             parametros["genero"] = genero
+            parametros["imagen"] = url_imagen
 
             val post : JSONObject = JSONObject(parametros)
 
@@ -180,7 +250,7 @@ class CrearActivity : AppCompatActivity() {
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
 
-        //Log.i("",post.toString())
+        Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
