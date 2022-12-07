@@ -27,6 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $publicaciones[$indice]["playstation"] = $fila['op_playstation'] == 1;
             $publicaciones[$indice]["nintendo"] = $fila['op_nintendo'] == 1;
             $publicaciones[$indice]["genero"] = $fila['genero'];
+            $publicaciones[$indice]["nombre_imagen"] = $fila['nombre_archivo'];
             $publicaciones[$indice]["imagen"] = $fila['archivo_url'];
 
             $indice++;

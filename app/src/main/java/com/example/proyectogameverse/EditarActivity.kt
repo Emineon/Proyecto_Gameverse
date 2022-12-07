@@ -25,6 +25,7 @@ class EditarActivity : AppCompatActivity() {
     private var playstation : Boolean = false
     private var nintendo : Boolean = false
     private var genero : String = ""
+    private var nombre_archivo : String = ""
     private var url_imagen = ""
     private var miniatura : Int = 0
 
@@ -45,6 +46,7 @@ class EditarActivity : AppCompatActivity() {
             playstation = intent.getBooleanExtra("playstation",false)
             nintendo = intent.getBooleanExtra("nintendo",false)
             genero = intent.getStringExtra("genero").toString()
+            nombre_archivo = intent.getStringExtra("nombre_imagen").toString()
             url_imagen = intent.getStringExtra("imagen").toString()
             miniatura = intent.getIntExtra("miniatura",0)
 
@@ -92,6 +94,7 @@ class EditarActivity : AppCompatActivity() {
         intent.putExtra("playstation",playstation)
         intent.putExtra("nintendo",nintendo)
         intent.putExtra("genero",genero)
+        intent.putExtra("nombre_archivo",nombre_archivo)
         intent.putExtra("imagen",url_imagen)
 
         startActivity(intent)

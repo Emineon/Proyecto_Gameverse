@@ -67,9 +67,9 @@ class MenuPrincipalActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        val intent = Intent(this, MainActivity::class.java);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        val intent = Intent(this, MainActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

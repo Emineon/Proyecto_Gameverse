@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $playstation = $post['playstation'];
         $nintendo = $post['nintendo'];
         $genero = $post['genero'];
+        $nombre_imagen = $post['nombre_imagen'];
         $imagen = $post['imagen'];
 
         $update = "update dbpublicaciones set titulo = '$titulo',
@@ -25,6 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 op_playstation = $playstation,
                 op_nintendo = $nintendo,
                 genero = '$genero',
+                nombre_imagen = '$nombre_imagen',
                 archivo_url = '$imagen',
                 fecha_actualizacion = NOW()
                 where id = $id";

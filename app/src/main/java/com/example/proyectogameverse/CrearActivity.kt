@@ -1,5 +1,6 @@
 package com.example.proyectogameverse
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -51,6 +53,12 @@ class CrearActivity : AppCompatActivity() {
         bsubir.setOnClickListener{
             seleccionarImagen()
         }
+
+        val cancelar_subida : ImageView = findViewById(R.id.cancelar_subida)
+
+        cancelar_subida.setOnClickListener{
+            borrarImagen()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,6 +94,7 @@ class CrearActivity : AppCompatActivity() {
             val playstation = intent.getBooleanExtra("playstation",false)
             val nintendo = intent.getBooleanExtra("nintendo",false)
             val genero = intent.getStringExtra("genero")
+            nombre_imagen = intent.getStringExtra("nombre_archivo").toString()
             url_imagen = intent.getStringExtra("imagen").toString()
 
             ettitulo = findViewById(R.id.etTitulo)
@@ -171,6 +180,82 @@ class CrearActivity : AppCompatActivity() {
         cancelar_subida.visibility = View.VISIBLE
     }
 
+    private fun borrarImagen() {
+        val alert : AlertDialog? = this?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton(R.string.ok,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        var storageRef = storage.reference
+                        var eliminar = storageRef.child("imagenes/${nombre_imagen}")
+
+                        eliminar.delete().addOnSuccessListener{
+                            url_imagen = ""
+                            nombre_imagen = ""
+
+                            val tvimagen : TextView = findViewById(R.id.tvImagen)
+                            tvimagen.setText("")
+
+                            val cancelar_subida : ImageView = findViewById(R.id.cancelar_subida)
+                            cancelar_subida.visibility = View.GONE
+
+                            if(id_publicacion != 0){
+                                eliminacionArchivo()
+                            }else{
+                                Toast.makeText(this@CrearActivity,"La imagen quedo eliminada",Toast.LENGTH_SHORT)
+                            }
+                        }.addOnFailureListener{
+                            Toast.makeText(this@CrearActivity,"Ocurrio un error para dicha acción",Toast.LENGTH_SHORT)
+                        }
+                    })
+                setNegativeButton(R.string.cancelar,
+                    DialogInterface.OnClickListener { dialog, id ->
+                    })
+            }
+
+            builder.setTitle("¿Deseas eliminar la imagen?")
+            builder.setMessage("Se quedaría por una imagen por default")
+
+            builder.create()
+            builder.show()
+        }
+    }
+
+    private fun eliminacionArchivo() {
+        val parametros = mutableMapOf<String, Any?>()
+
+        parametros["id"] = id_publicacion
+        parametros["nombre_imagen"] = nombre_imagen
+        parametros["imagen"] = url_imagen
+
+        val post : JSONObject = JSONObject(parametros)
+
+        val url_borrar = "http://192.168.1.87/gameverse_preservidor/publicaciones/borrar_imagen.php"
+
+        val queue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_borrar,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    Toast.makeText(applicationContext, "Se elimino correctamente la imagen", Toast.LENGTH_SHORT).show()
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
+    }
+
     private fun crearPublicacion() {
         ettitulo = findViewById(R.id.etTitulo)
         val titulo : String = ettitulo.text.toString()
@@ -199,6 +284,7 @@ class CrearActivity : AppCompatActivity() {
             parametros["playstation"] = playstation.toString()
             parametros["nintendo"] = nintendo.toString()
             parametros["genero"] = genero
+            parametros["nombre_imagen"] = nombre_imagen
             parametros["imagen"] = url_imagen
 
             val post : JSONObject = JSONObject(parametros)
@@ -237,6 +323,7 @@ class CrearActivity : AppCompatActivity() {
             parametros["playstation"] = playstation.toString()
             parametros["nintendo"] = nintendo.toString()
             parametros["genero"] = genero
+            parametros["nombre_imagen"] = nombre_imagen
             parametros["imagen"] = url_imagen
 
             val post : JSONObject = JSONObject(parametros)
@@ -249,8 +336,6 @@ class CrearActivity : AppCompatActivity() {
 
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
-
-        Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,
@@ -276,8 +361,6 @@ class CrearActivity : AppCompatActivity() {
 
     private fun modificarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
-
-        //Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,

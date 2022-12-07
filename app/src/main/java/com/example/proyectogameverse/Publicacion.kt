@@ -8,5 +8,6 @@ class Publicacion {
     var playstation = false
     var nintendo = false
     var genero = ""
+    var nombre_imagen = ""
     var thumbnail = ""
 }

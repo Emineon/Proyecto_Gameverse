@@ -129,6 +129,7 @@ class AjustesActivity : AppCompatActivity() {
                 setPositiveButton(R.string.ok,
                     DialogInterface.OnClickListener { dialog, id ->
                         val intent = Intent(this@AjustesActivity, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
                         startActivity(intent)
                     })
