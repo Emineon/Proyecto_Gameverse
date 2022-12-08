@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 op_playstation = $playstation,
                 op_nintendo = $nintendo,
                 genero = '$genero',
-                nombre_imagen = '$nombre_imagen',
+                nombre_archivo = '$nombre_imagen',
                 archivo_url = '$imagen',
                 fecha_actualizacion = NOW()
                 where id = $id";

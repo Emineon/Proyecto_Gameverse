@@ -24,21 +24,21 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $fecha = $fila['fecha_nacimiento'];
 
             if($fila['descripcion'] == NULL){
-		$perfil[$indice]["descripcion"] = "";
-	    }else{
-		$perfil[$indice]["descripcion"] = $fila['descripcion'];
-	    }
-
-	    if($fila['videojuego'] == NULL){
-            	$perfil[$indice]["videojuego"] = "";
-	    }else{
-	    	$perfil[$indice]["videojuego"] = $fila['videojuego'];
+                $perfil[$indice]["descripcion"] = "";
+            }else{
+                $perfil[$indice]["descripcion"] = $fila['descripcion'];
             }
 
-	    if($fecha == NULL || $fecha == '0000-00-00'){
-	    	$perfil[$indice]["fecha"] = "";
-	    }else{
-	        $fecha_format = strtotime($fecha);
+            if($fila['videojuego'] == NULL){
+                $perfil[$indice]["videojuego"] = "";
+            }else{
+                $perfil[$indice]["videojuego"] = $fila['videojuego'];
+            }
+
+            if($fecha == NULL || $fecha == '0000-00-00'){
+                $perfil[$indice]["fecha"] = "";
+            }else{
+                $fecha_format = strtotime($fecha);
                 $perfil[$indice]["fecha"] = date('d/m/Y',$fecha_format);
             }
 

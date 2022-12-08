@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
 class AjustesActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class AjustesActivity : AppCompatActivity() {
     private var fecha : String = ""
     private var descripcion : String = ""
     private var videojuego : String = ""
+
+    private lateinit var urlguardado : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +87,9 @@ class AjustesActivity : AppCompatActivity() {
 
         if(requestCode == 1 && resultCode == RESULT_OK){
             if(data != null){
+                val uri : Uri? = data.data
+
+                cargaImagen(uri)
                 val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
 
                 val fullPhotoUri = data.data
@@ -95,9 +101,18 @@ class AjustesActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun imprimirFoto(fullPhotoUri: Uri?) {
+    private fun cargaImagen(uri: Uri?) {
+        if(uri != null){
+            /*uri_guardado = uri
+            nombre_imagen = generarNombreArchivo()
 
-    }*/
+            mostrarImagen()
+
+            Toast.makeText(this,"La imagen se esta cargando", Toast.LENGTH_SHORT).show()
+
+            subirImagen()*/
+        }
+    }
 
     private fun cambiarDatos() {
         val intent = Intent(this, DatosActivity::class.java)

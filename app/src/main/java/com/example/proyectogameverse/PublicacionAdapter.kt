@@ -31,15 +31,6 @@ class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
             val intent = Intent(holder.itemView.context, EditarActivity::class.java)
 
             intent.putExtra("id",publicacion.id_publicacion)
-            intent.putExtra("titulo",publicacion.titulo)
-            intent.putExtra("descripcion",publicacion.descripcion)
-            intent.putExtra("xbox",publicacion.xbox)
-            intent.putExtra("playstation",publicacion.playstation)
-            intent.putExtra("nintendo",publicacion.nintendo)
-            intent.putExtra("genero",publicacion.genero)
-            intent.putExtra("imagen",publicacion.thumbnail)
-            intent.putExtra("nombre_imagen",publicacion.nombre_imagen)
-            intent.putExtra("actualizacion",publicacion.fecha_actualizacion)
 
             holder.itemView.context.startActivity(intent)
         }

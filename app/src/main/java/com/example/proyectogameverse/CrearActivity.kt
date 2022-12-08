@@ -148,6 +148,8 @@ class CrearActivity : AppCompatActivity() {
 
             mostrarImagen()
 
+            Toast.makeText(this,"La imagen se esta cargando",Toast.LENGTH_SHORT).show()
+
             subirImagen()
         }
     }
@@ -157,10 +159,11 @@ class CrearActivity : AppCompatActivity() {
         var carga = storageRef.putFile(uri_guardado)
 
         carga.addOnFailureListener{ error ->
-            Log.i("VideoGameActivity",error.toString())
+            Toast.makeText(this,"Ocurrio un error mientras se cargaba la imagen",Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener{ task ->
             storageRef.downloadUrl.addOnSuccessListener{ it
                 url_imagen = it.toString()
+                Toast.makeText(this,"Se cargo correctamente la imagen para subir",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -336,6 +339,8 @@ class CrearActivity : AppCompatActivity() {
 
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
+
+        Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,

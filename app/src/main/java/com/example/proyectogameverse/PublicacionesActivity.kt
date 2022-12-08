@@ -46,7 +46,6 @@ class PublicacionesActivity : AppCompatActivity() {
         super.onStart()
 
         ConfigAPI()
-
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -103,14 +102,7 @@ class PublicacionesActivity : AppCompatActivity() {
 
             publicacion.id_publicacion = publicaciones.getInt("id")
             publicacion.titulo = publicaciones.getString("titulo")
-            publicacion.descripcion = publicaciones.getString("descripcion")
-            publicacion.xbox = publicaciones.getBoolean("xbox")
-            publicacion.playstation = publicaciones.getBoolean("playstation")
-            publicacion.nintendo = publicaciones.getBoolean("nintendo")
-            publicacion.genero = publicaciones.getString("genero")
-            publicacion.nombre_imagen = publicaciones.getString("nombre_imagen")
             publicacion.thumbnail = publicaciones.getString("imagen")
-            publicacion.fecha_actualizacion = publicaciones.getString("actualizacion")
 
             adapter.guardar(publicacion)
         }

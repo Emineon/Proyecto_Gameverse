@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $nombre_imagen = $post['nombre_imagen'];
         $imagen = $post['imagen'];
 
-        $insert = "insert into dbpublicaciones (id_perfil, titulo, descripción, op_xbox, op_playstation, op_nintendo, genero, nombre_imagen, archivo_url, fecha_creacion, fecha_actualizacion) 
+        $insert = "insert into dbpublicaciones (id_perfil, titulo, descripción, op_xbox, op_playstation, op_nintendo, genero, nombre_archivo, archivo_url, fecha_creacion, fecha_actualizacion)
                 values ($id_perfil, '$titulo', '$descripcion', $xbox, $playstation, $nintendo, '$genero', '$nombre_imagen', '$imagen', NOW(), NOW())";
 
         $resultado = mysqli_query($conexion, $insert);

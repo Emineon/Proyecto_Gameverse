@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -11,12 +12,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import org.json.JSONArray
+import org.json.JSONObject
 
 class EditarActivity : AppCompatActivity() {
     private var url_borrar : String = ""
+    private var url_listar : String = ""
 
     private var id : Int = 0
     private var titulo : String = ""
@@ -40,28 +45,11 @@ class EditarActivity : AppCompatActivity() {
         val intent = intent
         if(intent != null && intent.hasExtra("id")){
             id = intent.getIntExtra("id",0)
-            titulo = intent.getStringExtra("titulo").toString()
-            descripcion = intent.getStringExtra("descripcion").toString()
-            xbox = intent.getBooleanExtra("xbox",false)
-            playstation = intent.getBooleanExtra("playstation",false)
-            nintendo = intent.getBooleanExtra("nintendo",false)
-            genero = intent.getStringExtra("genero").toString()
-            nombre_archivo = intent.getStringExtra("nombre_imagen").toString()
-            url_imagen = intent.getStringExtra("imagen").toString()
-            actualizacion = intent.getStringExtra("actualizacion").toString()
 
-            val tvpublicacion : TextView = findViewById(R.id.tvPublicacion)
-            val tvdescripcion : TextView = findViewById(R.id.tvDescripcion)
-            val ivimagen : ImageView = findViewById(R.id.ivImagen)
-            val tvfecha : TextView = findViewById(R.id.tvFecha)
+            url_listar = "http://3.22.175.225/gameverse_servidor/publicaciones/listar.php?id_publicaciones=$id"
+            leerLista()
 
-            tvpublicacion.text = titulo
-            tvdescripcion.text = descripcion
-            tvfecha.text = "Fecha de última modificación: $actualizacion"
-
-            if(url_imagen != ""){
-                Picasso.get().load(url_imagen).into(ivimagen)
-            }
+            Log.i("",url_listar)
         }
     }
 
@@ -144,5 +132,62 @@ class EditarActivity : AppCompatActivity() {
         )
 
         queue.add(request)
+    }
+
+    private fun leerLista() {
+        val queue : RequestQueue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET,
+            url_listar,
+            null,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    llenarLista(response.getJSONArray("lista"))
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(this,"Error en el acceso a sistema", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
+    }
+
+    private fun llenarLista(lista: JSONArray) {
+        for(i in 0 .. lista.length() - 1){
+            val publicaciones = lista[i] as JSONObject
+
+            id = publicaciones.getInt("id")
+            titulo = publicaciones.getString("titulo")
+            descripcion = publicaciones.getString("descripcion")
+            xbox = publicaciones.getBoolean("xbox")
+            playstation = publicaciones.getBoolean("playstation")
+            nintendo = publicaciones.getBoolean("nintendo")
+            genero = publicaciones.getString("genero")
+            nombre_archivo = publicaciones.getString("nombre_imagen")
+            url_imagen = publicaciones.getString("imagen")
+            actualizacion = publicaciones.getString("actualizacion")
+        }
+
+        val tvpublicacion : TextView = findViewById(R.id.tvPublicacion)
+        val tvdescripcion : TextView = findViewById(R.id.tvDescripcion)
+        val ivimagen : ImageView = findViewById(R.id.ivImagen)
+        val tvfecha : TextView = findViewById(R.id.tvFecha)
+
+        tvpublicacion.text = titulo
+        tvdescripcion.text = descripcion
+        tvfecha.text = "Fecha de última modificación: $actualizacion"
+
+        if(url_imagen != ""){
+            Picasso.get().load(url_imagen).into(ivimagen)
+        }else{
+            ivimagen.setImageResource(R.drawable.inc_videojuego)
+        }
     }
 }
