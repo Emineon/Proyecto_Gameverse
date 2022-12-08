@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost:3307';
+$host = 'localhost';
 $username = 'root';
-$password = '';
+$password = 'gameverse';
 $db = 'proyecto_db';
 
 $conexion = mysqli_connect($host, $username, $password, $db);

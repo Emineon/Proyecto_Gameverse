@@ -18,11 +18,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $fecha = $post['nacimiento'];
         $videojuego = $post['videojuego'];
 
-        $date = strtotime($fecha);
-        //$date = date('d/n/Y',$fecha_format);
+        $fecha_format = strtotime($fecha);
+        $date = date('Y-m-d',$fecha_format);
 
-        $update = "update dbperfil set 
-                nombre = '$nombre', fecha_nacimiento = $date, descripcion = '$descripcion', videojuego = '$videojuego' WHERE id = $id_perfil";
+        $update = "update dbperfil set
+                nombre = '$nombre', fecha_nacimiento = '$date', descripcion = '$descripcion', videojuego = '$videojuego' WHERE id = $id_perfil";
         $resultado = mysqli_query($conexion, $update);
 
         if ($resultado) {

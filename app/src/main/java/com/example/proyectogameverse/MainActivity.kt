@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             verificarPerfil()
         }
 
-        val tvcambiar : TextView = findViewById(R.id.tvCambiar)
+        val bolvidar : TextView = findViewById(R.id.bOlvidar)
 
-        tvcambiar.setOnClickListener{
+        bolvidar.setOnClickListener{
             val intent = Intent(this, RecuperacionActivity::class.java)
 
             startActivity(intent)
