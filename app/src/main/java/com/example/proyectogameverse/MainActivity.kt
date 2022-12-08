@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         if(perfil.isNotEmpty()){
             if(password.isNotEmpty()){
-                url_login = "http://192.168.1.87/gameverse_preservidor/usuario/login.php?nombre=$perfil&password=$password"
+                url_login = "http://3.22.175.225/gameverse_servidor/usuario/login.php?nombre=$perfil&password=$password"
 
                 leerAcceso()
             }else{

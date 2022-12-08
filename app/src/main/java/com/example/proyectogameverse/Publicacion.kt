@@ -10,4 +10,5 @@ class Publicacion {
     var genero = ""
     var nombre_imagen = ""
     var thumbnail = ""
+    var fecha_actualizacion = ""
 }

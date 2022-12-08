@@ -64,7 +64,7 @@ class PublicacionesActivity : AppCompatActivity() {
         if(intent != null && intent.hasExtra("id_perfil")){
             id_perfil = intent.getIntExtra("id_perfil",-1)
         }
-        url_listar = "http://192.168.1.87/gameverse_preservidor/publicaciones/listar.php?id_perfil=$id_perfil"
+        url_listar = "http://3.22.175.225/gameverse_servidor/publicaciones/listar.php?id_perfil=$id_perfil"
         leerLista()
     }
 
@@ -110,6 +110,7 @@ class PublicacionesActivity : AppCompatActivity() {
             publicacion.genero = publicaciones.getString("genero")
             publicacion.nombre_imagen = publicaciones.getString("nombre_imagen")
             publicacion.thumbnail = publicaciones.getString("imagen")
+            publicacion.fecha_actualizacion = publicaciones.getString("actualizacion")
 
             adapter.guardar(publicacion)
         }

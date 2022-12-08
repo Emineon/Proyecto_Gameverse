@@ -15,7 +15,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 class DatosActivity : AppCompatActivity() {
-    private var url_actualizar = "http://192.168.1.87/gameverse_preservidor/usuario/actualizar.php"
+    private var url_actualizar = "http://3.22.175.225/gameverse_servidor/usuario/actualizar.php"
 
     private lateinit var etnombre : EditText
     private lateinit var etdescripcion : EditText
@@ -99,6 +99,7 @@ class DatosActivity : AppCompatActivity() {
 
         if(nombre.isNotEmpty()){
             parametros["id"] = id_perfil
+            parametros["accion"] = "Datos"
             parametros["nombre"] = nombre
             parametros["descripcion"] = descripcion
             parametros["nacimiento"] = cumple

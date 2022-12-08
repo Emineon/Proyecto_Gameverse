@@ -39,7 +39,7 @@ class PublicacionAdapter : RecyclerView.Adapter<PublicacionHolder>(){
             intent.putExtra("genero",publicacion.genero)
             intent.putExtra("imagen",publicacion.thumbnail)
             intent.putExtra("nombre_imagen",publicacion.nombre_imagen)
-            intent.putExtra("miniatura",R.drawable.inc_videojuego)
+            intent.putExtra("actualizacion",publicacion.fecha_actualizacion)
 
             holder.itemView.context.startActivity(intent)
         }

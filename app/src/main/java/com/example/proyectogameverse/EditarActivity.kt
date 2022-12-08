@@ -27,7 +27,7 @@ class EditarActivity : AppCompatActivity() {
     private var genero : String = ""
     private var nombre_archivo : String = ""
     private var url_imagen = ""
-    private var miniatura : Int = 0
+    private var actualizacion : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class EditarActivity : AppCompatActivity() {
             genero = intent.getStringExtra("genero").toString()
             nombre_archivo = intent.getStringExtra("nombre_imagen").toString()
             url_imagen = intent.getStringExtra("imagen").toString()
-            miniatura = intent.getIntExtra("miniatura",0)
+            actualizacion = intent.getStringExtra("actualizacion").toString()
 
             val tvpublicacion : TextView = findViewById(R.id.tvPublicacion)
             val tvdescripcion : TextView = findViewById(R.id.tvDescripcion)
@@ -57,12 +57,10 @@ class EditarActivity : AppCompatActivity() {
 
             tvpublicacion.text = titulo
             tvdescripcion.text = descripcion
-            tvfecha.text = "Fecha de última modificación:"
+            tvfecha.text = "Fecha de última modificación: $actualizacion"
 
             if(url_imagen != ""){
                 Picasso.get().load(url_imagen).into(ivimagen)
-            }else{
-                ivimagen.setImageResource(miniatura)
             }
         }
     }
@@ -77,7 +75,7 @@ class EditarActivity : AppCompatActivity() {
             intentEditar()
         }
         if(item.itemId == R.id.opc_eliminar){
-            url_borrar = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php?id_publicaciones=$id"
+            url_borrar = "http://3.22.175.225/gameverse_servidor/publicaciones/modificar.php?id_publicaciones=$id"
             mensajeBorrar()
         }
 

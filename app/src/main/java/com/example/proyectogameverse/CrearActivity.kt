@@ -22,8 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CrearActivity : AppCompatActivity() {
-    private var url_crear : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/crear.php"
-    private var url_modificar : String = "http://192.168.1.87/gameverse_preservidor/publicaciones/modificar.php"
+    private var url_crear : String = "http://3.22.175.225/gameverse_servidor/publicaciones/crear.php"
+    private var url_modificar : String = "http://3.22.175.225/gameverse_servidor/publicaciones/modificar.php"
     private var url_imagen = ""
 
     private lateinit var ettitulo : EditText
@@ -230,7 +230,7 @@ class CrearActivity : AppCompatActivity() {
 
         val post : JSONObject = JSONObject(parametros)
 
-        val url_borrar = "http://192.168.1.87/gameverse_preservidor/publicaciones/borrar_imagen.php"
+        val url_borrar = "http://3.22.175.225/gameverse_preservidor/publicaciones/borrar_imagen.php"
 
         val queue = Volley.newRequestQueue(this)
 

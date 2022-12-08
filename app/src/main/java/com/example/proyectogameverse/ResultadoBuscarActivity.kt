@@ -53,7 +53,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             val parametros = mutableMapOf<String, Any?>()
 
             if(publicaciones != 0){ //Buscar publicaciones seleccionadas
-                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/publicaciones.php"
+                url_buscar = "http://3.22.175.225/gameverse_servidor/buscador/publicaciones.php"
 
                 parametros["buscar"] = buscar
                 parametros["xbox"] = xbox.toString()
@@ -69,7 +69,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             }
 
             if(grupos != 0){ //Buscar grupos seleccionados
-                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/grupos.php"
+                url_buscar = "http://3.22.175.225/gameverse_servidor/buscador/grupos.php"
 
                 parametros["buscar"] = buscar
 
@@ -81,7 +81,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             }
 
             if(perfiles != 0){ //Buscar perfiles seleccionados
-                url_buscar = "http://192.168.1.87/gameverse_preservidor/buscador/usuarios.php"
+                url_buscar = "http://3.22.175.225/gameverse_servidor/buscador/usuarios.php"
 
                 parametros["id"] = id_perfil
                 parametros["buscar"] = buscar

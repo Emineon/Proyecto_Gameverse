@@ -17,7 +17,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class MenuPrincipalActivity : AppCompatActivity() {
-    private var url_perfil : String = "http://192.168.1.87/gameverse_preservidor/perfil.php"
+    private var url_perfil : String = "http://3.22.175.225/gameverse_servidor/perfil.php"
     private lateinit var nombre : String
 
     private var id_perfil : Int = 0

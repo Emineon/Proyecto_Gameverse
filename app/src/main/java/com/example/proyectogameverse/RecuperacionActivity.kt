@@ -31,7 +31,7 @@ class RecuperacionActivity : AppCompatActivity() {
         perfil = etperfil.text.toString()
 
         if(perfil.isNotEmpty()){
-            url_recuperar = "http://192.168.1.87/gameverse_preservidor/usuario/recuperar.php?correo=$perfil"
+            url_recuperar = "http://3.22.175.225/gameverse_servidor/usuario/recuperar.php?correo=$perfil"
             leerPerfil()
         }else{
             Toast.makeText(this,"Introduce el correo electrónico",Toast.LENGTH_SHORT).show()
