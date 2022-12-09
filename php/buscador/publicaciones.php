@@ -41,7 +41,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $publicaciones[$i]["id"] = (int) $fila['id'];
             $publicaciones[$i]["titulo"] = $fila['titulo'];
             $publicaciones[$i]["descripcion"] = $fila['descripción'];
-            $publicaciones[$i]["url"] = $fila['url_archivo'];
+            if($fila['archivo_url'] == NULL){
+	    	$publicaciones[$i]["url"] = "";
+	    }else{
+		$publicaciones[$i]["url"] = $fila['archivo_url'];
+	    }
             $id_perfil = (int) $fila['id_perfil'];
 
             $usuario = "select * from dbperfil where id = $id_perfil";

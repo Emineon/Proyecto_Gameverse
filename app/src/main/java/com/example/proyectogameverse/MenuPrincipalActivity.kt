@@ -24,6 +24,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
     private var fecha : String = ""
     private var descripcion : String = ""
     private var videojuego : String = ""
+    private var imagen : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,6 +132,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
             fecha = perfil.getString("fecha")
             descripcion = perfil.getString("descripcion")
             videojuego = perfil.getString("videojuego")
+            imagen = perfil.getString("imagen")
         }
     }
 
@@ -148,6 +150,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         intent.putExtra("fecha",fecha)
         intent.putExtra("descripcion",descripcion)
         intent.putExtra("videojuego",videojuego)
+        intent.putExtra("imagen",imagen)
 
         startActivity(intent)
     }

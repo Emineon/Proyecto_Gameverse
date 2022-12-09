@@ -13,6 +13,16 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
+import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AjustesActivity : AppCompatActivity() {
     private var id_perfil : Int = 0
@@ -21,13 +31,19 @@ class AjustesActivity : AppCompatActivity() {
     private var descripcion : String = ""
     private var videojuego : String = ""
 
-    private lateinit var urlguardado : Uri
+    private var url_imagen : String = ""
+
+    private var url_actualizar = "http://3.22.175.225/gameverse_servidor/usuario/actualizar.php"
+
+    private lateinit var storage : FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajustes)
 
         ConfigUI()
+
+        storage = Firebase.storage
 
         val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
 
@@ -68,9 +84,12 @@ class AjustesActivity : AppCompatActivity() {
             fecha = intent.getStringExtra("fecha").toString()
             descripcion = intent.getStringExtra("descripcion").toString()
             videojuego = intent.getStringExtra("videojuego").toString()
+            url_imagen = intent.getStringExtra("imagen").toString()
 
             val tvnombre : TextView = findViewById(R.id.tvNombre)
             tvnombre.setText(nombre)
+
+            mostrarImagen()
         }
     }
 
@@ -90,28 +109,77 @@ class AjustesActivity : AppCompatActivity() {
                 val uri : Uri? = data.data
 
                 cargaImagen(uri)
-                val ibperfil : ImageButton = findViewById(R.id.ibPerfil)
-
-                val fullPhotoUri = data.data
-                Log.i("",fullPhotoUri.toString())
-                val imageBitmap = BitmapFactory.decodeFile(fullPhotoUri.toString())//data.extras?.get("data") as Bitmap
-
-                ibperfil.setImageBitmap(imageBitmap)
             }
         }
     }
 
     private fun cargaImagen(uri: Uri?) {
         if(uri != null){
-            /*uri_guardado = uri
-            nombre_imagen = generarNombreArchivo()
-
-            mostrarImagen()
+            var uri_guardado = uri
+            var nombre_imagen = generarNombreArchivo()
 
             Toast.makeText(this,"La imagen se esta cargando", Toast.LENGTH_SHORT).show()
 
-            subirImagen()*/
+            var storageRef = storage.getReference("perfiles/${nombre_imagen}")
+            var carga = storageRef.putFile(uri_guardado)
+
+            carga.addOnFailureListener{ error ->
+                Toast.makeText(this,"Ocurrio un error mientras se cargaba la imagen",Toast.LENGTH_SHORT).show()
+            }.addOnSuccessListener{ task ->
+                storageRef.downloadUrl.addOnSuccessListener{ it
+                    url_imagen = it.toString()
+                    mostrarImagen()
+                    enviarImagen()
+                }
+            }
         }
+    }
+
+    private fun generarNombreArchivo(): Any {
+        val time = Calendar.getInstance().time
+        val formatime = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss")
+        val current = formatime.format(time)
+        return "img_$current"
+    }
+
+    private fun mostrarImagen() {
+        if(url_imagen != "") {
+            val ibperfil: ImageButton = findViewById(R.id.ibPerfil)
+            Picasso.get().load(url_imagen).into(ibperfil)
+        }
+    }
+
+    private fun enviarImagen() {
+        val parametros = mutableMapOf<String, Any?>()
+
+        parametros["id"] = id_perfil
+        parametros["accion"] = "Foto"
+        parametros["imagen"] = url_imagen
+
+        val post : JSONObject = JSONObject(parametros)
+
+        val queue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_actualizar,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    Toast.makeText(applicationContext, "Se subio correctamente la imagen", Toast.LENGTH_SHORT).show()
+                }else{
+                    val mensaje : String = response.getString("mensaje")
+                    Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
     }
 
     private fun cambiarDatos() {

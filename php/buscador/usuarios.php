@@ -31,7 +31,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $perfiles[$i]["email"] = $fila['email'];
             $perfiles[$i]["descripcion"] = $fila['descripcion'];
             $perfiles[$i]["videojuego"] = $fila['videojuego'];
-            $perfiles[$i]["url"] = $fila['imagen_url'];
+
+	    if($fila['imagen_url'] == NULL){
+	    	$perfiles[$i]["url"] = "";
+	    }else{
+		$perfiles[$i]["url"] = $fila['imagen_url'];
+            }
 
             $i++;
         }

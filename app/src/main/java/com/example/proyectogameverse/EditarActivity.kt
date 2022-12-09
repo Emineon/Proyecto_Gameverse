@@ -48,8 +48,6 @@ class EditarActivity : AppCompatActivity() {
 
             url_listar = "http://3.22.175.225/gameverse_servidor/publicaciones/listar.php?id_publicaciones=$id"
             leerLista()
-
-            Log.i("",url_listar)
         }
     }
 

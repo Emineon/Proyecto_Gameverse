@@ -225,6 +225,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             buscar.descripcion_perfil = busqueda.getString("descripcion")
             buscar.videojuego = busqueda.getString("videojuego")
             buscar.thumbnail = busqueda.getString("url")
+            Log.i("",buscar.thumbnail)
 
             adapter.guardar(buscar)
         }

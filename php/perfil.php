@@ -42,6 +42,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 $perfil[$indice]["fecha"] = date('d/m/Y',$fecha_format);
             }
 
+            $perfil[$indice]["imagen"] = $fila['imagen_url'];
+
             $indice++;
         }
 

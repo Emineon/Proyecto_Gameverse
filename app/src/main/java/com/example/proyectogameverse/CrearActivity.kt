@@ -93,7 +93,7 @@ class CrearActivity : AppCompatActivity() {
             val xbox = intent.getBooleanExtra("xbox",false)
             val playstation = intent.getBooleanExtra("playstation",false)
             val nintendo = intent.getBooleanExtra("nintendo",false)
-            val genero = intent.getStringExtra("genero")
+            val genero = intent.getStringExtra("genero").toString()
             nombre_imagen = intent.getStringExtra("nombre_archivo").toString()
             url_imagen = intent.getStringExtra("imagen").toString()
 
@@ -113,7 +113,8 @@ class CrearActivity : AppCompatActivity() {
             cbplaystation.isChecked = playstation
             cbnintendo.isChecked = nintendo
 
-            sgenero.selectedItem.equals(genero)
+            val arreglo = resources.getStringArray(R.array.genero)
+            sgenero.setSelection(arreglo.indexOf(genero))
 
             mostrarImagen()
         }
@@ -339,8 +340,6 @@ class CrearActivity : AppCompatActivity() {
 
     private fun enviarPublicacion(post: JSONObject) {
         val queue = Volley.newRequestQueue(this)
-
-        Log.i("",post.toString())
 
         val request : JsonObjectRequest = JsonObjectRequest(
             Request.Method.POST,

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
     private lateinit var data : ArrayList<Buscar>
@@ -22,6 +23,11 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
 
         if(busqueda.id_publicacion != 0){
             holder.tvtitulo.text = busqueda.titulo
+            if(busqueda.thumbnail != ""){
+                Picasso.get().load(busqueda.thumbnail).into(holder.ivthumbnail)
+            }else{
+                holder.ivthumbnail.setImageResource(R.drawable.inc_videojuego)
+            }
         }
 
         if(busqueda.id_grupos != 0){
@@ -30,6 +36,11 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
 
         if(busqueda.id_perfil != 0){
             holder.tvtitulo.text = busqueda.nombre
+            if(busqueda.thumbnail != ""){
+                Picasso.get().load(busqueda.thumbnail).into(holder.ivthumbnail)
+            }else{
+                holder.ivthumbnail.setImageResource(R.drawable.ic_perfil)
+            }
         }
     }
 
