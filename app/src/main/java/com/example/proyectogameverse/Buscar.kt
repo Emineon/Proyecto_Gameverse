@@ -4,7 +4,7 @@ class Buscar {
     var id_publicacion = 0
     var titulo = ""
     var descripcion = ""
-    var usuario = ""
+    var creacion = ""
 
     var id_grupos = 0
     var nombre_grupo = ""

@@ -34,6 +34,7 @@ class AjustesActivity : AppCompatActivity() {
     private var url_imagen : String = ""
 
     private var url_actualizar = "http://3.22.175.225/gameverse_servidor/usuario/actualizar.php"
+    private var url_listar = "http://3.22.175.225/gameverse_servidor/menu/perfil.php"
 
     private lateinit var storage : FirebaseStorage
 
@@ -89,8 +90,14 @@ class AjustesActivity : AppCompatActivity() {
             val tvnombre : TextView = findViewById(R.id.tvNombre)
             tvnombre.setText(nombre)
 
+            recargarPerfil()
+
             mostrarImagen()
         }
+    }
+
+    private fun recargarPerfil() {
+
     }
 
     private fun seleccionarFoto() {
@@ -195,12 +202,14 @@ class AjustesActivity : AppCompatActivity() {
 
     private fun cambiarPassword() {
         val intent = Intent(this, PasswordActivity::class.java)
+        intent.putExtra("id_perfil",id_perfil)
 
         startActivity(intent)
     }
 
     private fun cambiarCorreo() {
         val intent = Intent(this, CorreoActivity::class.java)
+        intent.putExtra("id_perfil",id_perfil)
 
         startActivity(intent)
     }

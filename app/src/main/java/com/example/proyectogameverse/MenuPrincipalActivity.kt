@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -17,7 +19,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class MenuPrincipalActivity : AppCompatActivity() {
-    private var url_perfil : String = "http://3.22.175.225/gameverse_servidor/perfil.php"
+    private var url_perfil : String = "http://3.22.175.225/gameverse_servidor/menu/perfil.php"
+    private var url_publicaciones : String = "http://3.22.175.225/gameverse_servidor/menu/publicaciones.php"
     private lateinit var nombre : String
 
     private var id_perfil : Int = 0
@@ -26,9 +29,17 @@ class MenuPrincipalActivity : AppCompatActivity() {
     private var videojuego : String = ""
     private var imagen : String = ""
 
+    private lateinit var adapter : BuscadorAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
+
+        val rvmenu : RecyclerView = findViewById(R.id.rvMenu)
+        adapter = BuscadorAdapter()
+
+        rvmenu.adapter = adapter
+        rvmenu.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,false)
 
         val chippublicaciones : Chip = findViewById(R.id.chipPublicaciones)
 
@@ -99,6 +110,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
             url_perfil += "?nombre=$nombre"
 
             leerPerfil()
+            leerPublicaciones()
         }
     }
 
@@ -110,13 +122,13 @@ class MenuPrincipalActivity : AppCompatActivity() {
             url_perfil,
             null,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     llenarIdentificador(response.getJSONArray("lista"))
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(this,"Error en el acceso a sistema", Toast.LENGTH_SHORT).show()
             }
         )
@@ -133,6 +145,49 @@ class MenuPrincipalActivity : AppCompatActivity() {
             descripcion = perfil.getString("descripcion")
             videojuego = perfil.getString("videojuego")
             imagen = perfil.getString("imagen")
+        }
+    }
+
+    private fun leerPublicaciones(){
+        val queue : RequestQueue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET,
+            url_publicaciones,
+            null,
+            {
+                response ->
+                if(response.getBoolean("exito")){
+                    llenarPublicaciones(response.getJSONArray("lista"))
+                }
+            },
+            {
+                errorResponse ->
+                Toast.makeText(this,"Error en el acceso a sistema", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
+    }
+
+    private fun llenarPublicaciones(lista: JSONArray) {
+        adapter.limpiar()
+
+        for(i in 0 .. lista.length() - 1){
+            val busqueda = lista[i] as JSONObject
+
+            var buscar = Buscar()
+
+            buscar.id_publicacion = busqueda.getInt("id")
+            buscar.titulo = busqueda.getString("titulo")
+            buscar.descripcion = busqueda.getString("descripcion")
+            buscar.creacion = busqueda.getString("creacion")
+            buscar.thumbnail = busqueda.getString("url")
+            buscar.id_perfil = busqueda.getInt("perfil")
+            buscar.nombre = busqueda.getString("usuario")
+
+            Log.i("",buscar.titulo)
+            adapter.guardar(buscar)
         }
     }
 

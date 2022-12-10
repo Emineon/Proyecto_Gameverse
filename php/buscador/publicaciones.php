@@ -41,12 +41,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $publicaciones[$i]["id"] = (int) $fila['id'];
             $publicaciones[$i]["titulo"] = $fila['titulo'];
             $publicaciones[$i]["descripcion"] = $fila['descripción'];
-            if($fila['archivo_url'] == NULL){
+
+     	    $fecha = strtotime($fila['fecha_creacion']);
+            $publicaciones[$i]["creacion"] = date("d/m/Y",$fecha);
+
+	    if($fila['archivo_url'] == NULL){
 	    	$publicaciones[$i]["url"] = "";
 	    }else{
 		$publicaciones[$i]["url"] = $fila['archivo_url'];
 	    }
-            $id_perfil = (int) $fila['id_perfil'];
+
+            $publicaciones[$i]["perfil"] = (int) $fila['id_perfil'];
+            $id_perfil = $publicaciones[$i]["perfil"];
 
             $usuario = "select * from dbperfil where id = $id_perfil";
             $result = mysqli_query($conexion, $usuario);
@@ -64,6 +70,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }else{
         $retorno['mensaje'] = "No se encontro ninguna publicación";
     }
+}else{
+$retorno['mensaje'] = "No se encontro ningún dato";
 }
 
 header('Content-type: application/json');

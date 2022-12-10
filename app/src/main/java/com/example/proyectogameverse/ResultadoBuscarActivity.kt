@@ -133,8 +133,10 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             buscar.id_publicacion = busqueda.getInt("id")
             buscar.titulo = busqueda.getString("titulo")
             buscar.descripcion = busqueda.getString("descripcion")
+            buscar.creacion = busqueda.getString("creacion")
             buscar.thumbnail = busqueda.getString("url")
-            buscar.usuario = busqueda.getString("usuario")
+            buscar.id_perfil = busqueda.getInt("perfil")
+            buscar.nombre = busqueda.getString("usuario")
 
             adapter.guardar(buscar)
         }

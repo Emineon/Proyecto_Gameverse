@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config.php";
 
 $retorno = array(
     'exito' => false,
@@ -24,25 +24,25 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $fecha = $fila['fecha_nacimiento'];
 
             if($fila['descripcion'] == NULL){
-                $perfil[$indice]["descripcion"] = "";
-            }else{
-                $perfil[$indice]["descripcion"] = $fila['descripcion'];
+		$perfil[$indice]["descripcion"] = "";
+	    }else{
+		$perfil[$indice]["descripcion"] = $fila['descripcion'];
+	    }
+
+	    if($fila['videojuego'] == NULL){
+            	$perfil[$indice]["videojuego"] = "";
+	    }else{
+	    	$perfil[$indice]["videojuego"] = $fila['videojuego'];
             }
 
-            if($fila['videojuego'] == NULL){
-                $perfil[$indice]["videojuego"] = "";
-            }else{
-                $perfil[$indice]["videojuego"] = $fila['videojuego'];
-            }
-
-            if($fecha == NULL || $fecha == '0000-00-00'){
-                $perfil[$indice]["fecha"] = "";
-            }else{
-                $fecha_format = strtotime($fecha);
+	    if($fecha == NULL || $fecha == '0000-00-00'){
+	    	$perfil[$indice]["fecha"] = "";
+	    }else{
+	        $fecha_format = strtotime($fecha);
                 $perfil[$indice]["fecha"] = date('d/m/Y',$fecha_format);
             }
 
-            $perfil[$indice]["imagen"] = $fila['imagen_url'];
+	    $perfil[$indice]["imagen"] = $fila['imagen_url'];
 
             $indice++;
         }
