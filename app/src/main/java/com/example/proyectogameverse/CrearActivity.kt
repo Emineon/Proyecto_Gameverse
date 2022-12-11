@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -44,10 +46,31 @@ class CrearActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear)
 
+        etDesc = findViewById(R.id.etDescPublicacion)
+        //val tvinvisible : TextView = findViewById(R.id.tvInvisible)
+
+        /*etDesc.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tvinvisible.setText(s.toString())
+                var size=tvinvisible.textSize
+                size=size/3
+                etDesc.textSize=size
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })*/
+
         configAPI()
 
         storage = Firebase.storage
-        
+
         val bsubir : Button = findViewById(R.id.bSubir)
 
         bsubir.setOnClickListener{
@@ -98,7 +121,6 @@ class CrearActivity : AppCompatActivity() {
             url_imagen = intent.getStringExtra("imagen").toString()
 
             ettitulo = findViewById(R.id.etTitulo)
-            etDesc = findViewById(R.id.etDescPublicacion)
 
             cbxbox = findViewById(R.id.cbXbox)
             cbplaystation = findViewById(R.id.cbPlaystation)
@@ -303,7 +325,6 @@ class CrearActivity : AppCompatActivity() {
         ettitulo = findViewById(R.id.etTitulo)
         val titulo : String = ettitulo.text.toString()
 
-        etDesc = findViewById(R.id.etDescPublicacion)
         val descripcion : String = etDesc.text.toString()
 
         cbxbox = findViewById(R.id.cbXbox)
@@ -374,6 +395,7 @@ class CrearActivity : AppCompatActivity() {
                 response ->
                 if(response.getBoolean("exito")){
                     finish()
+                    overridePendingTransition(0, 0)
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()

@@ -82,6 +82,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -107,7 +108,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val intent = intent
         if(intent != null && intent.hasExtra("nombre")){
             nombre = intent.getStringExtra("nombre").toString()
-            url_perfil += "?nombre=$nombre"
+            url_perfil = "http://3.22.175.225/gameverse_servidor/menu/perfil.php?nombre=$nombre"
 
             leerPerfil()
             leerPublicaciones()
@@ -141,10 +142,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
             val perfil = lista[i] as JSONObject
 
             id_perfil = perfil.getInt("id")
-            fecha = perfil.getString("fecha")
-            descripcion = perfil.getString("descripcion")
-            videojuego = perfil.getString("videojuego")
-            imagen = perfil.getString("imagen")
         }
     }
 
@@ -183,10 +180,10 @@ class MenuPrincipalActivity : AppCompatActivity() {
             buscar.descripcion = busqueda.getString("descripcion")
             buscar.creacion = busqueda.getString("creacion")
             buscar.thumbnail = busqueda.getString("url")
-            buscar.id_perfil = busqueda.getInt("perfil")
             buscar.nombre = busqueda.getString("usuario")
 
-            Log.i("",buscar.titulo)
+            buscar.id_usuario = id_perfil
+
             adapter.guardar(buscar)
         }
     }
@@ -202,10 +199,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, AjustesActivity::class.java)
         intent.putExtra("id_perfil",id_perfil)
         intent.putExtra("nombre",nombre)
-        intent.putExtra("fecha",fecha)
-        intent.putExtra("descripcion",descripcion)
-        intent.putExtra("videojuego",videojuego)
-        intent.putExtra("imagen",imagen)
 
         startActivity(intent)
     }

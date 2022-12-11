@@ -26,6 +26,7 @@ class ComentariosAdapter : RecyclerView.Adapter<ComentariosHolder>() {
         holder.tvcomentario.text = comments.comentario
 
         if(comments.icono != ""){
+            holder.ivicono.setBackgroundDrawable(null)
             Picasso.get().load(comments.icono).into(holder.ivicono)
         }
     }

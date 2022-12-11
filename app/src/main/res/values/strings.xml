@@ -3,6 +3,32 @@
     <string name="ok">Ok</string>
     <string name="cancelar">Cancelar</string>
     <string name="confirmacion">¿Quieres eliminar la siguiente publicación?</string>
+    <string name="titulo">Titulo</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="escribe_aqu">Escribe Aquí</string>
+    <string name="plataforma">Plataforma</string>
+    <string name="xbox">Xbox</string>
+    <string name="playstation">PlayStation</string>
+    <string name="nintendo">Nintendo</string>
+    <string name="genero">Genero</string>
+    <string name="subir">Subir</string>
+    <string name="archivo_imagen_o_video">Archivo (Imagen o Video)</string>
+    <string name="max_35">Max: 35</string>
+    <string name="max_500">Max: 500</string>
+    <string name="inicio_de_sesi_n">Inicio de sesión</string>
+    <string name="nombre_de_usuario">Nombre de usuario o correo electrónico</string>
+    <string name="contra">Contraseña</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="se_le_olvido">¿Se le olvido la contraseña?</string>
+    <string name="eres_nuevo">¿Eres nuevo?</string>
+    <string name="registrar">Registrar</string>
+    <string name="recuperacion">Recuperación de contraseña</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="recuperar">Recuperar</string>
+    <string name="confirmar_contra">Confirmar contraseña</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="crear_perfil">Crear perfil</string>
+    <string name="nombre">Nombre de usuario</string>
     <string-array name="genero">
         <item></item>
         <item>Acción</item>

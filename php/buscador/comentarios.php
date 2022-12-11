@@ -34,8 +34,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if($adicional){
                 $comentarios[$i]["usuario"] = mysqli_fetch_assoc($adicional)['nombre'];
-                if(mysqli_fetch_assoc($adicional)['imagen_url'] != NULL){
-                	$comentarios[$i]["icono"] = mysqli_fetch_assoc($adicional)['imagen_url'];
+            }
+
+	    $extra = mysqli_query($conexion, $usuario);
+
+	    if($extra){
+	        $imagen = mysqli_fetch_assoc($extra)['imagen_url'];
+                if($imagen != NULL){
+                        $comentarios[$i]["icono"] = $imagen;
                 }else{
                         $comentarios[$i]["icono"] = "";
                 }

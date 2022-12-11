@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -14,12 +15,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
+import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,14 +30,15 @@ import java.util.*
 class AjustesActivity : AppCompatActivity() {
     private var id_perfil : Int = 0
     private var nombre : String = ""
+    private var correo : String = ""
     private var fecha : String = ""
     private var descripcion : String = ""
     private var videojuego : String = ""
 
     private var url_imagen : String = ""
 
+    private var url_perfil : String = "http://3.22.175.225/gameverse_servidor/menu/perfil.php"
     private var url_actualizar = "http://3.22.175.225/gameverse_servidor/usuario/actualizar.php"
-    private var url_listar = "http://3.22.175.225/gameverse_servidor/menu/perfil.php"
 
     private lateinit var storage : FirebaseStorage
 
@@ -79,25 +83,58 @@ class AjustesActivity : AppCompatActivity() {
 
     private fun ConfigUI() {
         val intent = intent
-        if(intent != null){
+        if(intent != null && intent.hasExtra("id_perfil")){
             id_perfil = intent.getIntExtra("id_perfil",0)
             nombre = intent.getStringExtra("nombre").toString()
-            fecha = intent.getStringExtra("fecha").toString()
-            descripcion = intent.getStringExtra("descripcion").toString()
-            videojuego = intent.getStringExtra("videojuego").toString()
-            url_imagen = intent.getStringExtra("imagen").toString()
-
-            val tvnombre : TextView = findViewById(R.id.tvNombre)
-            tvnombre.setText(nombre)
-
-            recargarPerfil()
-
-            mostrarImagen()
         }
+
+        val tvnombre : TextView = findViewById(R.id.tvNombre)
+        tvnombre.setText(nombre)
+
+        recargarPerfil()
     }
 
     private fun recargarPerfil() {
+        val parametros = mutableMapOf<String, Any?>()
 
+        parametros["id"] = id_perfil
+
+        val post : JSONObject = JSONObject(parametros)
+
+        val queue : RequestQueue = Volley.newRequestQueue(this)
+
+        val request : JsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url_perfil,
+            post,
+            {
+                    response ->
+                if(response.getBoolean("exito")){
+                    llenarIdentificador(response.getJSONArray("lista"))
+                }
+            },
+            {
+                    errorResponse ->
+                Toast.makeText(this,"Error en el acceso a sistema", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        queue.add(request)
+    }
+
+    private fun llenarIdentificador(lista: JSONArray) {
+        for(i in 0 .. lista.length() - 1){
+            val perfil = lista[i] as JSONObject
+
+            correo = perfil.getString("email")
+            fecha = perfil.getString("fecha")
+            descripcion = perfil.getString("descripcion")
+            videojuego = perfil.getString("videojuego")
+            url_imagen = perfil.getString("imagen")
+            Log.i("",url_imagen)
+        }
+
+        mostrarImagen()
     }
 
     private fun seleccionarFoto() {
@@ -152,6 +189,7 @@ class AjustesActivity : AppCompatActivity() {
     private fun mostrarImagen() {
         if(url_imagen != "") {
             val ibperfil: ImageButton = findViewById(R.id.ibPerfil)
+            ibperfil.setBackgroundDrawable(null)
             Picasso.get().load(url_imagen).into(ibperfil)
         }
     }
@@ -210,6 +248,8 @@ class AjustesActivity : AppCompatActivity() {
     private fun cambiarCorreo() {
         val intent = Intent(this, CorreoActivity::class.java)
         intent.putExtra("id_perfil",id_perfil)
+        intent.putExtra("nombre",nombre)
+        intent.putExtra("correo",correo)
 
         startActivity(intent)
     }

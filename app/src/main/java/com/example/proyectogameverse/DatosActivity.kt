@@ -24,6 +24,7 @@ class DatosActivity : AppCompatActivity() {
 
     private var id_perfil : Int = 0
     private var nombre : String = ""
+    private var nuevonombre : String = ""
     private var fecha : String = ""
     private var descripcion : String = ""
     private var videojuego : String = ""
@@ -84,7 +85,7 @@ class DatosActivity : AppCompatActivity() {
 
     private fun confirmarActualizar() {
         etnombre = findViewById(R.id.etNombre2)
-        val nombre : String = etnombre.text.toString()
+        nuevonombre = etnombre.text.toString()
 
         etdescripcion = findViewById(R.id.etDescripcion)
         val descripcion : String = etdescripcion.text.toString()
@@ -97,10 +98,10 @@ class DatosActivity : AppCompatActivity() {
 
         val parametros = mutableMapOf<String, Any?>()
 
-        if(nombre.isNotEmpty()){
+        if(nuevonombre.isNotEmpty()){
             parametros["id"] = id_perfil
             parametros["accion"] = "Datos"
-            parametros["nombre"] = nombre
+            parametros["nombre"] = nuevonombre
             parametros["descripcion"] = descripcion
             parametros["nacimiento"] = cumple
             parametros["videojuego"] = videojuego
@@ -123,7 +124,11 @@ class DatosActivity : AppCompatActivity() {
             {
                 response ->
                 if(response.getBoolean("exito")){
-                    finish()
+                    val intent = Intent(this,AjustesActivity::class.java)
+                    intent.putExtra("id_perfil",id_perfil)
+                    intent.putExtra("nombre",nuevonombre)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()

@@ -12,6 +12,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $nombre = $post['nombre'];
     $password = $post['password'];
     $email = $post['email'];
+    //$imagen = file('img/imagen_perfil.jpg');
+    //$imgContenido = addslashes(file_get_contents($imagen));
 
     if(filter_var($email,FILTER_VALIDATE_EMAIL) !== false){
         $select = "select * from dbperfil WHERE nombre = '$nombre' AND email = '$email'";

@@ -16,5 +16,6 @@ class Buscar {
     var descripcion_perfil = ""
     var videojuego = ""
 
+    var id_usuario = 0
     var thumbnail = ""
 }

@@ -53,8 +53,9 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
                 intent.putExtra("descripcion",busqueda.descripcion)
                 intent.putExtra("creacion",busqueda.creacion)
                 intent.putExtra("imagen",busqueda.thumbnail)
-                intent.putExtra("id_perfil",busqueda.id_perfil)
                 intent.putExtra("usuario",busqueda.nombre)
+
+                intent.putExtra("id_usuario",busqueda.id_usuario)
 
                 holder.itemView.context.startActivity(intent)
             }
