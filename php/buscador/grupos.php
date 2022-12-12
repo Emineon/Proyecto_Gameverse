@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(!empty($post['buscar'])){
         $nombre = $post['buscar'];
-        $select .= " where nombre_grupo = '$nombre'";
+        $select .= " where nombre_grupo LIKE '%$nombre%'";
     }
 
     $resultado = mysqli_query($conexion, $select);

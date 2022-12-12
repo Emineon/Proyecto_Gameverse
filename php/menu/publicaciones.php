@@ -8,7 +8,16 @@ $retorno = array(
 );
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    $select = "select * from dbpublicaciones ORDER BY id DESC";
+    $get = empty($_GET) ? json_decode(file_get_contents('php://input'), true) : $_GET;
+
+    $select = "select * from dbpublicaciones";
+
+    if(!empty($get['id_perfil'])){
+	$select .= " WHERE id_perfil = $get[id_perfil]";
+    }
+
+    $select .= " ORDER BY id DESC";
+
     $resultado = mysqli_query($conexion, $select);
 
     if($resultado){

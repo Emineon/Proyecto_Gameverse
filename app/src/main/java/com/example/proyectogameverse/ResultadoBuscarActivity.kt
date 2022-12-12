@@ -16,6 +16,9 @@ import org.json.JSONObject
 
 class ResultadoBuscarActivity : AppCompatActivity() {
     private var url_buscar : String = ""
+
+    private var id_perfil: Int = 0
+
     private lateinit var adapter : BuscadorAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +41,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
     private fun ConfigUI() {
         val intent = intent
         if(intent != null){
-            val id_perfil = intent.getIntExtra("id_perfil",0)
+            id_perfil = intent.getIntExtra("id_perfil",0)
             val buscar = intent.getStringExtra("buscar")
             val publicaciones = intent.getIntExtra("publicaciones",0)
             val grupos = intent.getIntExtra("grupos",0)
@@ -106,8 +109,6 @@ class ResultadoBuscarActivity : AppCompatActivity() {
                     response ->
                 if(response.getBoolean("exito")){
                     llenarPublicaciones(response.getJSONArray("lista"))
-                    val mensaje : String = response.getString("mensaje")
-                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
@@ -135,8 +136,9 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             buscar.descripcion = busqueda.getString("descripcion")
             buscar.creacion = busqueda.getString("creacion")
             buscar.thumbnail = busqueda.getString("url")
-            buscar.id_perfil = busqueda.getInt("perfil")
             buscar.nombre = busqueda.getString("usuario")
+
+            buscar.id_usuario = id_perfil
 
             adapter.guardar(buscar)
         }
@@ -182,6 +184,8 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             buscar.descripcion_grupo = busqueda.getString("descripcion")
             buscar.thumbnail = busqueda.getString("url")
 
+            buscar.id_usuario = id_perfil
+
             adapter.guardar(buscar)
         }
     }
@@ -197,8 +201,6 @@ class ResultadoBuscarActivity : AppCompatActivity() {
                     response ->
                 if(response.getBoolean("exito")){
                     llenarPerfiles(response.getJSONArray("lista"))
-                    val mensaje : String = response.getString("mensaje")
-                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
@@ -221,13 +223,14 @@ class ResultadoBuscarActivity : AppCompatActivity() {
 
             var buscar = Buscar()
 
-            buscar.id_grupos = busqueda.getInt("id")
-            buscar.nombre_grupo = busqueda.getString("nombre")
+            buscar.id_perfil= busqueda.getInt("id")
+            buscar.nombre = busqueda.getString("nombre")
             buscar.email = busqueda.getString("email")
             buscar.descripcion_perfil = busqueda.getString("descripcion")
             buscar.videojuego = busqueda.getString("videojuego")
             buscar.thumbnail = busqueda.getString("url")
-            Log.i("",buscar.thumbnail)
+
+            buscar.id_usuario = id_perfil
 
             adapter.guardar(buscar)
         }

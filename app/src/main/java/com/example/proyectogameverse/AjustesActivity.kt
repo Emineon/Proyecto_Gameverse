@@ -29,6 +29,7 @@ import java.util.*
 
 class AjustesActivity : AppCompatActivity() {
     private var id_perfil : Int = 0
+    private var viejo_nombre : String = ""
     private var nombre : String = ""
     private var correo : String = ""
     private var fecha : String = ""
@@ -81,6 +82,30 @@ class AjustesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putString("viejo_nombre",nombre)
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        viejo_nombre = savedInstanceState.getString("viejo_nombre").toString()
+    }
+
+    override fun onBackPressed() {
+        if(viejo_nombre != nombre){
+            val intent = Intent(this,MenuPrincipalActivity::class.java)
+            intent.putExtra("nombre",nombre)
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
+        super.onBackPressed()
+    }
+
     private fun ConfigUI() {
         val intent = intent
         if(intent != null && intent.hasExtra("id_perfil")){
@@ -108,13 +133,13 @@ class AjustesActivity : AppCompatActivity() {
             url_perfil,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     llenarIdentificador(response.getJSONArray("lista"))
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(this,"Error en el acceso a sistema", Toast.LENGTH_SHORT).show()
             }
         )
@@ -131,7 +156,6 @@ class AjustesActivity : AppCompatActivity() {
             descripcion = perfil.getString("descripcion")
             videojuego = perfil.getString("videojuego")
             url_imagen = perfil.getString("imagen")
-            Log.i("",url_imagen)
         }
 
         mostrarImagen()

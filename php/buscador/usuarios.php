@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(!empty($post['buscar'])){
         $nombre = $post['buscar'];
-        $select .= " AND nombre = '$nombre'";
+        $select .= " AND nombre LIKE '%$nombre%'";
     }
 
     $resultado = mysqli_query($conexion, $select);

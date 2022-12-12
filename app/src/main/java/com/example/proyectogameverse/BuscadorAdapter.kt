@@ -39,9 +39,10 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
             holder.tvtitulo.text = busqueda.nombre
             if(busqueda.thumbnail != ""){
                 Picasso.get().load(busqueda.thumbnail).into(holder.ivthumbnail)
-            }else{
-                holder.ivthumbnail.setImageResource(R.drawable.ic_perfil)
-            }
+            }/*else{
+                holder.ivthumbnail.setImageDrawable(null)
+                holder.ivthumbnail.setBackgroundResource(R.drawable.ic_perfil)
+            }*/
         }
 
         holder.itemView.setOnClickListener{
@@ -54,6 +55,21 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
                 intent.putExtra("creacion",busqueda.creacion)
                 intent.putExtra("imagen",busqueda.thumbnail)
                 intent.putExtra("usuario",busqueda.nombre)
+
+                intent.putExtra("id_usuario",busqueda.id_usuario)
+
+                holder.itemView.context.startActivity(intent)
+            }
+
+            if(busqueda.id_perfil != 0){
+                val intent = Intent(holder.itemView.context, PerfilActivity::class.java)
+
+                intent.putExtra("id",busqueda.id_perfil)
+                intent.putExtra("nombre",busqueda.nombre)
+                intent.putExtra("email",busqueda.email)
+                intent.putExtra("descripcion",busqueda.descripcion_perfil)
+                intent.putExtra("videojuego",busqueda.videojuego)
+                intent.putExtra("imagen",busqueda.thumbnail)
 
                 intent.putExtra("id_usuario",busqueda.id_usuario)
 

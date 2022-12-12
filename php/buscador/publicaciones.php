@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(!empty($post['buscar'])){
         $nombre = $post['buscar'];
-        $select .= "titulo = '$nombre' AND ";
+        $select .= "titulo LIKE '%$nombre%' AND ";
     }
 
     $xbox = $post['xbox'];

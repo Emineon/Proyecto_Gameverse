@@ -108,11 +108,14 @@ class MenuPrincipalActivity : AppCompatActivity() {
         val intent = intent
         if(intent != null && intent.hasExtra("nombre")){
             nombre = intent.getStringExtra("nombre").toString()
-            url_perfil = "http://3.22.175.225/gameverse_servidor/menu/perfil.php?nombre=$nombre"
+            url_perfil += "?nombre=$nombre"
 
             leerPerfil()
             leerPublicaciones()
         }
+
+        Log.i("",id_perfil.toString())
+        Log.i("",nombre)
     }
 
     private fun leerPerfil() {

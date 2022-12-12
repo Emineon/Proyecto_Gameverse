@@ -76,10 +76,8 @@ class PublicacionUserActivity : AppCompatActivity() {
 
     private fun ConfigIU() {
         val intent = intent
-        if(intent != null){
-            if(intent.hasExtra("id")) {
-                id_publicacion = intent.getIntExtra("id", 0)
-            }
+        if(intent != null && intent.hasExtra("id")){
+            id_publicacion = intent.getIntExtra("id", 0)
             titulo = intent.getStringExtra("titulo").toString()
             descripcion = intent.getStringExtra("descripcion").toString()
             creacion = "Fecha: "+intent.getStringExtra("creacion").toString()
@@ -175,7 +173,7 @@ class PublicacionUserActivity : AppCompatActivity() {
             url_crear_comentario,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     finish()
                     overridePendingTransition(0, 0)
@@ -187,7 +185,7 @@ class PublicacionUserActivity : AppCompatActivity() {
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext, "Error en el acceso de BD", Toast.LENGTH_SHORT).show()
             }
         )

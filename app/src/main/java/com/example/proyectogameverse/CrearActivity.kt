@@ -47,25 +47,6 @@ class CrearActivity : AppCompatActivity() {
         setContentView(R.layout.activity_crear)
 
         etDesc = findViewById(R.id.etDescPublicacion)
-        //val tvinvisible : TextView = findViewById(R.id.tvInvisible)
-
-        /*etDesc.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tvinvisible.setText(s.toString())
-                var size=tvinvisible.textSize
-                size=size/3
-                etDesc.textSize=size
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })*/
 
         configAPI()
 
@@ -394,7 +375,12 @@ class CrearActivity : AppCompatActivity() {
             {
                 response ->
                 if(response.getBoolean("exito")){
-                    finish()
+                    val intent = Intent(this, EditarActivity::class.java)
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.putExtra("id",id_publicacion)
+
+                    startActivity(intent)
                     overridePendingTransition(0, 0)
                 }else{
                     val mensaje : String = response.getString("mensaje")
