@@ -29,8 +29,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $perfiles[$i]["id"] = (int) $fila['id'];
             $perfiles[$i]["nombre"] = $fila['nombre'];
             $perfiles[$i]["email"] = $fila['email'];
-            $perfiles[$i]["descripcion"] = $fila['descripcion'];
-            $perfiles[$i]["videojuego"] = $fila['videojuego'];
+
+            if($fila['descripcion'] == NULL){
+                $perfiles[$i]["descripcion"] = "";
+            }else{
+            	$perfiles[$i]["descripcion"] = $fila['descripcion'];
+            }
+
+            if($fila['videojuego'] == NULL){
+                $perfiles[$i]["videojuego"] = "Desconocido";
+            }else{
+            	$perfiles[$i]["videojuego"] = $fila['videojuego'];
+            }
 
 	    if($fila['imagen_url'] == NULL){
 	    	$perfiles[$i]["url"] = "";

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Buscador"
+        android:text="@string/buscador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Selección de búsqueda"
+        android:text="@string/seleccion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etBuscar" />
 
@@ -54,19 +54,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Publicaciones" />
+            android:text="@string/publicaciones" />
 
         <RadioButton
             android:id="@+id/rbGrupos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Grupos" />
+            android:text="@string/gruposbuscar" />
 
         <RadioButton
             android:id="@+id/rbPerfiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Perfiles" />
+            android:text="@string/perfiles" />
 
     </RadioGroup>
 
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="Filtro de plataforma"
+        android:text="@string/filtro_de_plataforma"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etBuscar" />
 
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="53dp"
-        android:text="Xbox"
+        android:text="@string/xbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:text="Playstation"
+        android:text="@string/playstation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbXboxBuscar" />
 
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="28dp"
-        android:text="Nintendo"
+        android:text="@string/nintendo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbPlaystationBuscar" />
 
@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Genero"
+        android:text="@string/genero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Buscar"
+        android:text="@string/buscar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

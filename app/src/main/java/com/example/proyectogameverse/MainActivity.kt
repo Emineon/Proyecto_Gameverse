@@ -1,13 +1,14 @@
 package com.example.proyectogameverse
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.KeyEvent
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -31,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         biniciar.setOnClickListener{
             verificarPerfil()
         }
+
+        val etpassword : EditText = findViewById(R.id.etPassword)
+
+        etpassword.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                verificarPerfil()
+            }
+            false
+        })
 
         val bolvidar : TextView = findViewById(R.id.bOlvidar)
 

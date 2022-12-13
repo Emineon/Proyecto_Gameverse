@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/bGrupo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -40,10 +40,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGrupos"
         android:layout_width="409dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/bGrupo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

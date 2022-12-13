@@ -3,6 +3,8 @@ package com.example.proyectogameverse
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -24,6 +26,14 @@ class PasswordActivity : AppCompatActivity() {
         bpassword.setOnClickListener{
             verificarPassword()
         }
+
+        val etpasswordConf : EditText = findViewById(R.id.etPasswdConf)
+        etpasswordConf.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                verificarPassword()
+            }
+            false
+        })
     }
 
     override fun onStart() {

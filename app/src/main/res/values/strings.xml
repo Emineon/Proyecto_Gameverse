@@ -29,6 +29,28 @@
     <string name="confirmar">Confirmar</string>
     <string name="crear_perfil">Crear perfil</string>
     <string name="nombre">Nombre de usuario</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="mis_publicaciones">Mis publicaciones</string>
+    <string name="grupos">Mis grupos</string>
+    <string name="crear">Crear</string>
+    <string name="configuracion_de_usuario">Configuración de usuario</string>
+    <string name="cambiar_datos">Cambiar datos</string>
+    <string name="cambiar_correo_electronico">Cambiar correo electrónico</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="modificar_contrase_a">Modificar contraseña</string>
+    <string name="publicaciones">Publicaciones</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="comentar_aqu">Comentar Aquí</string>
+    <string name="publicar">Publicar</string>
+    <string name="confirmar_contrase_a">Confirmar contraseña</string>
+    <string name="informacion">Información</string>
+    <string name="cambiar_correo">Cambiar correo electrónico</string>
+    <string name="buscador">Buscador</string>
+    <string name="seleccion">Selección de búsqueda</string>
+    <string name="gruposbuscar">Grupos</string>
+    <string name="perfiles">Perfiles</string>
+    <string name="filtro_de_plataforma">Filtro de plataforma</string>
+    <string name="buscar">Buscar</string>
     <string-array name="genero">
         <item></item>
         <item>Acción</item>

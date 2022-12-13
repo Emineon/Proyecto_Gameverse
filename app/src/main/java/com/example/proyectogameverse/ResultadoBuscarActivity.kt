@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -74,7 +75,12 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             if(grupos != 0){ //Buscar grupos seleccionados
                 url_buscar = "http://3.22.175.225/gameverse_servidor/buscador/grupos.php"
 
+                parametros["id"] = id_perfil
                 parametros["buscar"] = buscar
+                parametros["xbox"] = xbox.toString()
+                parametros["playstation"] = playstation.toString()
+                parametros["nintendo"] = nintendo.toString()
+                parametros["genero"] = genero
 
                 val post : JSONObject = JSONObject(parametros)
 
@@ -106,7 +112,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             url_buscar,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     llenarPublicaciones(response.getJSONArray("lista"))
                 }else{
@@ -115,7 +121,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
             }
         )
@@ -127,6 +133,11 @@ class ResultadoBuscarActivity : AppCompatActivity() {
         adapter.limpiar()
 
         for(i in 0 .. lista.length() - 1){
+            if(i != -1){
+                val tvsinresultado : TextView = findViewById(R.id.tvSinResult)
+                tvsinresultado.visibility = View.GONE
+            }
+
             val busqueda = lista[i] as JSONObject
 
             var buscar = Buscar()
@@ -152,18 +163,16 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             url_buscar,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     llenarGrupos(response.getJSONArray("lista"))
-                    val mensaje : String = response.getString("mensaje")
-                    Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext,mensaje,Toast.LENGTH_SHORT).show()
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
             }
         )
@@ -175,14 +184,19 @@ class ResultadoBuscarActivity : AppCompatActivity() {
         adapter.limpiar()
 
         for(i in 0 .. lista.length() - 1){
+            if(i != -1){
+                val tvsinresultado : TextView = findViewById(R.id.tvSinResult)
+                tvsinresultado.visibility = View.GONE
+            }
+
             val busqueda = lista[i] as JSONObject
 
             var buscar = Buscar()
 
             buscar.id_grupos = busqueda.getInt("id")
-            buscar.nombre_grupo = busqueda.getString("titulo")
+            buscar.nombre_grupo = busqueda.getString("nombre")
             buscar.descripcion_grupo = busqueda.getString("descripcion")
-            buscar.thumbnail = busqueda.getString("url")
+            buscar.thumbnail = busqueda.getString("icono")
 
             buscar.id_usuario = id_perfil
 
@@ -198,7 +212,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
             url_buscar,
             post,
             {
-                    response ->
+                response ->
                 if(response.getBoolean("exito")){
                     llenarPerfiles(response.getJSONArray("lista"))
                 }else{
@@ -207,7 +221,7 @@ class ResultadoBuscarActivity : AppCompatActivity() {
                 }
             },
             {
-                    errorResponse ->
+                errorResponse ->
                 Toast.makeText(applicationContext,"Error en el acceso a sistema",Toast.LENGTH_SHORT).show()
             }
         )
@@ -219,6 +233,11 @@ class ResultadoBuscarActivity : AppCompatActivity() {
         adapter.limpiar()
 
         for(i in 0 .. lista.length() - 1){
+            if(i != -1){
+                val tvsinresultado : TextView = findViewById(R.id.tvSinResult)
+                tvsinresultado.visibility = View.GONE
+            }
+
             val busqueda = lista[i] as JSONObject
 
             var buscar = Buscar()

@@ -8,6 +8,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +17,9 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
@@ -35,9 +39,13 @@ class EditarActivity : AppCompatActivity() {
     private var url_imagen = ""
     private var actualizacion : String = ""
 
+    private lateinit var storage : FirebaseStorage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar)
+
+        storage = Firebase.storage
 
         ConfigIU()
     }
@@ -103,7 +111,7 @@ class EditarActivity : AppCompatActivity() {
                 setPositiveButton(R.string.ok,
                     DialogInterface.OnClickListener { dialog, id ->
                         // User clicked OK button
-                        borrarPublicacion()
+                        borrarImagen()
                     })
                 setNegativeButton(R.string.cancelar,
                     DialogInterface.OnClickListener { dialog, id ->
@@ -116,6 +124,25 @@ class EditarActivity : AppCompatActivity() {
             // Create the AlertDialog
             builder.create()
             builder.show()
+        }
+    }
+
+    private fun borrarImagen() {
+        if(url_imagen != "") {
+            var storageRef = storage.reference
+            var eliminar = storageRef.child("imagenes/${nombre_archivo}")
+
+            eliminar.delete().addOnSuccessListener {
+                borrarPublicacion()
+            }.addOnFailureListener() {
+                Toast.makeText(
+                    applicationContext,
+                    "Ocurrio un error para eliminar el archivo",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }else{
+            borrarPublicacion()
         }
     }
 

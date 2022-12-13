@@ -3,6 +3,8 @@ package com.example.proyectogameverse
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -24,6 +26,15 @@ class BuscadorActivity : AppCompatActivity() {
         bbuscar.setOnClickListener{
             buscarRegistro()
         }
+
+        val etbuscar : EditText = findViewById(R.id.etBuscar)
+
+        etbuscar.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                buscarRegistro()
+            }
+            false
+        })
     }
 
     private fun configAPI() {

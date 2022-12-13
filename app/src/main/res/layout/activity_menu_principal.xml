@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Bienvenido"
+        android:text="@string/bienvenido"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
@@ -32,14 +32,14 @@
             android:id="@+id/chipPublicaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mis publicaciones"
+            android:text="@string/mis_publicaciones"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipGrupos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Grupos"
+            android:text="@string/grupos"
             android:textAlignment="center" />
     </com.google.android.material.chip.ChipGroup>
 

@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }else{
     	$id = $get['id_perfil'];
 
-    	$select = "select * from dbpublicaciones where id_perfil = $id";
+    	$select = "select * from dbpublicaciones where id_perfil = $id ORDER BY id DESC";
     	$resultado = mysqli_query($conexion, $select);
 
     	if($resultado){

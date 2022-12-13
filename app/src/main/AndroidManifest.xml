@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".VerGrupoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrearGrupoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MostrarPerfilActivity"
             android:exported="false" />
         <activity

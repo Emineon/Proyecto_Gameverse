@@ -8,10 +8,11 @@
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_buscador.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_correo.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear.xml" value="0.4" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear_grupo.xml" value="0.25" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_crear_perfil.xml" value="0.2" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_datos.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_editar.xml" value="0.25" />
-        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_grupos.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_grupos.xml" value="0.25" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_main.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_menu.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_menu_principal.xml" value="0.24954710144927536" />
@@ -24,6 +25,7 @@
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_recuperacion.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_recuperacion2.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_resultado_buscar.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/activity_ver_grupo.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/comentarios_row.xml" value="0.264" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/layout/publicacion_row.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/josue/AndroidStudioProjects/ProyectoGameverse/app/src/main/res/menu/menucrear.xml" value="0.25416666666666665" />

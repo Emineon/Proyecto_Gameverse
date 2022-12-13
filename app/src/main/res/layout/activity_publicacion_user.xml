@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Comentarios"
+        android:text="@string/comentarios"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
@@ -69,8 +69,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvComentarios"
         android:layout_width="409dp"
-        android:layout_height="393dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/etComentario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvListaCom" />
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:ems="10"
-        android:hint="Comentar Aquí"
+        android:hint="@string/comentar_aqu"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bPublicar"
@@ -91,7 +92,7 @@
         android:id="@+id/bPublicar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Publicar"
+        android:text="@string/publicar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

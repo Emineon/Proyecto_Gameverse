@@ -298,7 +298,7 @@ class CrearActivity : AppCompatActivity() {
 
             enviarPublicacion(post)
         }else{
-            Toast.makeText(this,"Llenar el formulario para publicar",Toast.LENGTH_SHORT)
+            Toast.makeText(this,"Llenar el formulario para publicar",Toast.LENGTH_SHORT).show()
         }
     }
 

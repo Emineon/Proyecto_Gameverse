@@ -53,10 +53,12 @@ if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
         $id = $get['id_publicaciones'];
 
         $delete = "delete FROM dbpublicaciones where id = $id";
+	$deleteCom = "delete FROM dbcomentarios where id_publicacion = $id";
 
         $resultado = mysqli_query($conexion, $delete);
+	$segundoresul = mysqli_query($conexion, $deleteCom);
 
-        if($resultado){
+        if($resultado && $segundoresul){
             $retorno['exito'] = true;
             $retorno['mensaje'] = "Se elimino la publicación";
         }else{

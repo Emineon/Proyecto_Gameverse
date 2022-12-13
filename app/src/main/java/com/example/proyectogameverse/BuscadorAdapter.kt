@@ -33,6 +33,9 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
 
         if(busqueda.id_grupos != 0){
             holder.tvtitulo.text = busqueda.nombre_grupo
+            if(busqueda.thumbnail != ""){
+                Picasso.get().load(busqueda.thumbnail).into(holder.ivthumbnail)
+            }
         }
 
         if(busqueda.id_publicacion == 0 && busqueda.id_perfil != 0){
@@ -55,6 +58,19 @@ class BuscadorAdapter : RecyclerView.Adapter<BuscadorHolder>() {
                 intent.putExtra("creacion",busqueda.creacion)
                 intent.putExtra("imagen",busqueda.thumbnail)
                 intent.putExtra("usuario",busqueda.nombre)
+
+                intent.putExtra("id_usuario",busqueda.id_usuario)
+
+                holder.itemView.context.startActivity(intent)
+            }
+
+            if(busqueda.id_grupos != 0){
+                val intent = Intent(holder.itemView.context, VerGrupoActivity::class.java)
+
+                intent.putExtra("id",busqueda.id_grupos)
+                intent.putExtra("nombre",busqueda.nombre_grupo)
+                intent.putExtra("descripcion",busqueda.descripcion_grupo)
+                intent.putExtra("icono",busqueda.thumbnail)
 
                 intent.putExtra("id_usuario",busqueda.id_usuario)
 

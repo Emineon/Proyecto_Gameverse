@@ -54,6 +54,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
 
         chipgrupos.setOnClickListener{
             val intent = Intent(this, GruposActivity::class.java)
+            intent.putExtra("id_perfil",id_perfil)
 
             startActivity(intent)
         }
@@ -113,9 +114,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
             leerPerfil()
             leerPublicaciones()
         }
-
-        Log.i("",id_perfil.toString())
-        Log.i("",nombre)
     }
 
     private fun leerPerfil() {
