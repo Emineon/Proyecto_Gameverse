@@ -209,10 +209,10 @@ class CrearActivity : AppCompatActivity() {
                             if(id_publicacion != 0){
                                 eliminacionArchivo()
                             }else{
-                                Toast.makeText(this@CrearActivity,"La imagen quedo eliminada",Toast.LENGTH_SHORT)
+                                Toast.makeText(this@CrearActivity,"La imagen quedo eliminada",Toast.LENGTH_SHORT).show()
                             }
                         }.addOnFailureListener{
-                            Toast.makeText(this@CrearActivity,"Ocurrio un error para dicha acción",Toast.LENGTH_SHORT)
+                            Toast.makeText(this@CrearActivity,"Ocurrio un error para dicha acción",Toast.LENGTH_SHORT).show()
                         }
                     })
                 setNegativeButton(R.string.cancelar,
