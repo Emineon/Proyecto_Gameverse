@@ -1,6 +1,7 @@
 package com.example.proyectogameverse
 
 import android.app.VoiceInteractor
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,14 +13,24 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.json.JSONObject
 
 class CrearPerfilActivity : AppCompatActivity() {
     private val url_registrar : String = "http://3.22.175.225/gameverse_servidor/usuario/registrar.php"
 
+    private var nombre : String = ""
+
+    private lateinit var firebaseAuth : FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_perfil)
+
+        firebaseAuth = Firebase.auth
 
         val bregistrar : Button = findViewById(R.id.bRegistar)
 
@@ -28,9 +39,20 @@ class CrearPerfilActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        val user = firebaseAuth.currentUser
+        if(user != null){
+            if(user.isEmailVerified){
+
+            }
+        }
+    }
+
     private fun verificarRegistro() {
         val etnombre : EditText = findViewById(R.id.etNombre)
-        val nombre : String = etnombre.text.toString()
+        nombre = etnombre.text.toString()
 
         val etcorreo : EditText = findViewById(R.id.etCorreo)
         val correo : String = etcorreo.text.toString()
@@ -45,14 +67,37 @@ class CrearPerfilActivity : AppCompatActivity() {
             if(correo.isNotEmpty()){
                 if(crearpassword.isNotEmpty() && confpassword.isNotEmpty()){
                     if(crearpassword == confpassword){
-                        val parametros = mutableMapOf<String, Any?>()
-                        parametros["nombre"] = nombre
-                        parametros["password"] = crearpassword
-                        parametros["email"] = correo
+                        firebaseAuth.createUserWithEmailAndPassword(correo, crearpassword).addOnCompleteListener(this) { task ->
+                            if(!task.isSuccessful) {
+                                try {
+                                    throw task.exception!!
+                                } catch(e: FirebaseAuthUserCollisionException) {
+                                    Toast.makeText(applicationContext, "El usuario ya existe", Toast.LENGTH_SHORT).show()
+                                } catch(e: Exception) {
+                                    Toast.makeText(applicationContext, "Ha ocurrido un error al registrar el usuario.", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                val user = firebaseAuth.currentUser
+                                val userId = user!!.uid
+                                val userEmail = user.email
 
-                        val post : JSONObject = JSONObject(parametros)
+                                val parametros = mutableMapOf<String, Any?>()
+                                parametros["nombre"] = nombre
+                                parametros["password"] = crearpassword
+                                parametros["email"] = userEmail
 
-                        enviarRegistro(post)
+                                val post : JSONObject = JSONObject(parametros)
+
+                                user.sendEmailVerification().addOnCompleteListener { secondTask ->
+                                    if(secondTask.isSuccessful) {
+                                        Log.d("", "Email de verificación enviado a $userEmail.")
+                                        enviarRegistro(post)
+                                    } else {
+                                        Log.d("", "Error al enviar email de verificación a $userEmail.")
+                                    }
+                                }
+                            }
+                        }
                     }else{
                         Toast.makeText(this,"No se ingreso igualmente la contraseña", Toast.LENGTH_SHORT).show()
                     }
@@ -78,6 +123,7 @@ class CrearPerfilActivity : AppCompatActivity() {
                 response ->
                 if(response.getBoolean("exito")){
                     val intent = Intent(this, MenuPrincipalActivity::class.java)
+                    intent.putExtra("nombre",nombre)
 
                     startActivity(intent)
                 }else{
