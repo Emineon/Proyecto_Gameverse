@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -94,6 +96,11 @@ class PublicacionesActivity : AppCompatActivity() {
         adapter.limpiar()
 
         for(i in 0 .. lista.length() - 1){
+            if(i != -1){
+                val tvcontenido : TextView = findViewById(R.id.tvContenido)
+                tvcontenido.visibility = View.GONE
+            }
+
             val publicaciones = lista[i] as JSONObject
 
             var publicacion = Publicacion()

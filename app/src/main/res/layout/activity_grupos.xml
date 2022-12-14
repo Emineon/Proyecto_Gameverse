@@ -20,22 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="24dp"
-        android:text="Buscar grupos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-    <Button
         android:id="@+id/bGrupo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="28dp"
         android:text="Crear grupo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -47,4 +37,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bGrupo" />
+
+    <TextView
+        android:id="@+id/tvSinGrupos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No tienes ningún grupo"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rvGrupos"
+        app:layout_constraintTop_toTopOf="@+id/rvGrupos" />
 </androidx.constraintlayout.widget.ConstraintLayout>

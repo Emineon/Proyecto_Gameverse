@@ -24,10 +24,6 @@ class MenuPrincipalActivity : AppCompatActivity() {
     private lateinit var nombre : String
 
     private var id_perfil : Int = 0
-    private var fecha : String = ""
-    private var descripcion : String = ""
-    private var videojuego : String = ""
-    private var imagen : String = ""
 
     private lateinit var adapter : BuscadorAdapter
 
@@ -80,10 +76,7 @@ class MenuPrincipalActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        overridePendingTransition(0, 0)
+        finishAffinity()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

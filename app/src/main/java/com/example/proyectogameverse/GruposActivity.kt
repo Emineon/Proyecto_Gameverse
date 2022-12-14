@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -82,6 +84,11 @@ class GruposActivity : AppCompatActivity() {
         adapter.limpiar()
 
         for(i in 0 .. lista.length() - 1){
+            if(i != -1){
+                val tvsingrupos : TextView = findViewById(R.id.tvSinGrupos)
+                tvsingrupos.visibility = View.GONE
+            }
+
             val grupos = lista[i] as JSONObject
 
             var grupo = Buscar()

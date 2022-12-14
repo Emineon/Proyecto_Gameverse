@@ -51,6 +51,7 @@
     <string name="perfiles">Perfiles</string>
     <string name="filtro_de_plataforma">Filtro de plataforma</string>
     <string name="buscar">Buscar</string>
+    <string name="videojuego_favorito">Videojuego Favorito</string>
     <string-array name="genero">
         <item></item>
         <item>Acción</item>

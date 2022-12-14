@@ -19,8 +19,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         	$fecha = $post['nacimiento'];
         	$videojuego = $post['videojuego'];
 
-        	$fecha_format = strtotime($fecha);
-        	$date = date('Y-m-d',$fecha_format);
+		if(!empty($fecha)){
+			$separador = explode('/', $fecha);
+			if(checkdate($separador[0], $separador[1], $separador[2])){
+        			$fecha_format = strtotime($fecha);
+        			$date = date('Y-m-d',$fecha_format);
+			}else{
+				$date = NULL;
+			}
+		}
 
         	$update = "update dbperfil set
                 	nombre = '$nombre', fecha_nacimiento = '$date', descripcion = '$descripcion', videojuego = '$videojuego' WHERE id = $id_perfil";

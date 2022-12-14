@@ -13,8 +13,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $select = "select * from dbgrupos";
 
     if(!empty($get['id'])){
-         $select .= " where id_perfil = $get[id]";
+    	 $select .= " where id_perfil = $get[id]";
     }
+
+    $select .= " ORDER BY id DESC";
 
     $resultado = mysqli_query($conexion, $select);
 
@@ -23,22 +25,22 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
         $i = 0;
         while($fila = mysqli_fetch_assoc($resultado)){
-                $grupos[$i]["id_grupo"] = (int) $fila['id'];
-                $grupos[$i]["nombre_grupo"] = $fila['nombre_grupo'];
-                $grupos[$i]["descripcion"] = $fila['descripcion'];
-                $grupos[$i]["icono"] = $fila['icono_url'];
+            	$grupos[$i]["id_grupo"] = (int) $fila['id'];
+            	$grupos[$i]["nombre_grupo"] = $fila['nombre_grupo'];
+            	$grupos[$i]["descripcion"] = $fila['descripcion'];
+            	$grupos[$i]["icono"] = $fila['icono_url'];
 
-                $grupos[$i]["perfil"] = (int) $fila['id_perfil'];
+		$grupos[$i]["perfil"] = (int) $fila['id_perfil'];
                 $id_perfil = $grupos[$i]["perfil"];
 
                 $usuario = "select * from dbperfil where id = $id_perfil";
                 $result = mysqli_query($conexion, $usuario);
 
                 if($result){
-                        $grupos[$i]["usuario"] = mysqli_fetch_assoc($result)['nombre'];
+                	$grupos[$i]["usuario"] = mysqli_fetch_assoc($result)['nombre'];
                 }
 
-                $i++;
+            	$i++;
         }
 
         $retorno['exito'] = true;

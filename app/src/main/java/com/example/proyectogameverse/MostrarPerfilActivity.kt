@@ -29,8 +29,8 @@ class MostrarPerfilActivity : AppCompatActivity() {
 
             val tvnombre : TextView = findViewById(R.id.tvNombreAjeno)
             val tvdescripcion : TextView = findViewById(R.id.tvDescAjeno)
-            val etemail : EditText = findViewById(R.id.etCorreoAjeno)
-            val etvideojuego : EditText = findViewById(R.id.etVideojuegoAjeno)
+            val etemail : TextView = findViewById(R.id.etCorreoAjeno)
+            val etvideojuego : TextView = findViewById(R.id.etVideojuegoAjeno)
             val ivperfil : ImageView = findViewById(R.id.ivPerfilAjeno)
 
             tvnombre.setText(nombre)

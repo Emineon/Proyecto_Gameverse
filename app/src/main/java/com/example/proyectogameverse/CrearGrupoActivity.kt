@@ -220,6 +220,7 @@ class CrearGrupoActivity : AppCompatActivity() {
                 response ->
                 if(response.getBoolean("exito")){
                     finish()
+
                 }else{
                     val mensaje : String = response.getString("mensaje")
                     Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()

@@ -27,26 +27,6 @@
         app:layout_constraintStart_toEndOf="@+id/ibPerfilAjeno"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bSeguir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="Seguir"
-        app:layout_constraintStart_toEndOf="@+id/ibPerfilAjeno"
-        app:layout_constraintTop_toBottomOf="@+id/tvPerfilAjeno" />
-
-    <Button
-        android:id="@+id/bMensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="Mensaje"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bSeguir"
-        app:layout_constraintTop_toBottomOf="@+id/tvPerfilAjeno" />
-
     <TextView
         android:id="@+id/textView41"
         android:layout_width="wrap_content"
